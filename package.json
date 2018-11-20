@@ -5,7 +5,7 @@
   "author": "Kristiyan Tachev",
   "license": "MIT",
   "dependencies": {
-    "@rxdi/core": "^0.0.340"
+    "@rxdi/core": "^0.0.344"
   },
   "devDependencies": {
     "typescript": "^3.0.3"

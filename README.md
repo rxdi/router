@@ -46,7 +46,6 @@ export class AppComponent extends PreactComponent<HelloProps, HelloState> {
     render(props: HelloProps, ) {
         return <div>
             <h1>Hello from {this.props.compiler}, {this.props.framework} and {this.props.rxdi}!</h1>
-            <h1>Reactive Service Counter: {this.state && this.state.value}</h1>
         </div>;
     }
 
