@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "target": "es6",
+        "baseUrl": "src",
+        "module": "esnext",
+        "stripInternal": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "outDir": ".",
+        "lib": [
+            "es2017",
+            "es2016",
+            "es2015",
+            "es6",
+            "dom",
+            "esnext.asynciterable"
+        ],
+        "skipLibCheck": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "files": [
+        "./src/index.ts"
+    ]
+}

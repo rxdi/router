@@ -1,0 +1,13 @@
+{
+  "name": "@rxdi/router",
+  "version": "0.0.343",
+  "main": "index.js",
+  "author": "Kristiyan Tachev",
+  "license": "MIT",
+  "dependencies": {
+    "@rxdi/core": "^0.0.340"
+  },
+  "devDependencies": {
+    "typescript": "^3.0.3"
+  }
+}
