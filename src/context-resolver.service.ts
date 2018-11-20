@@ -1,18 +1,22 @@
-import { Service, Container, Inject } from "@rxdi/core";
-import { constructorWatcherService, ConstructorWatcherService } from "@rxdi/core/services/constructor-watcher";
+import { Service, Container } from "@rxdi/core";
 import { RoutesService } from "./routes.service";
 import { Router } from "./history";
 
 @Service()
 export class ContextResolver {
 
-    private moduleWatcher: ConstructorWatcherService = constructorWatcherService;
-    @Inject(() => Router) private router: Router
-
     constructor(
         private routes: RoutesService,
+        private router: Router
         
-    ) {}
+    ) {
+        this.router.onChange()
+        .subscribe(async () => {
+            const snapshot = this.router.getSnapshot();
+            this.router.activatedRoute.next(snapshot);
+            await this.resolve(snapshot.route);
+        });
+    }
 
     async resolve(path: string) {
         const currentRoute = this.routes.get().filter(r => r.path === path.replace('/', ''));

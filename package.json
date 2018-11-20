@@ -4,10 +4,8 @@
   "main": "index.js",
   "author": "Kristiyan Tachev",
   "license": "MIT",
-  "dependencies": {
-    "@rxdi/core": "^0.0.344"
-  },
   "devDependencies": {
-    "typescript": "^3.0.3"
+    "typescript": "^3.0.3",
+    "@rxdi/core": "^0.0.344"
   }
 }

@@ -1,7 +1,6 @@
-import { Service, Inject } from "@rxdi/core";
+import { Service } from "@rxdi/core";
 import history, { StartOptions } from './history/history';
 import { Observable, of, BehaviorSubject } from "rxjs";
-import { ContextResolver } from "./context-resolver.service";
 
 @Service()
 export class Router {
@@ -9,22 +8,15 @@ export class Router {
     private locationBar = new history();
     activatedRoute: BehaviorSubject<any> = new BehaviorSubject(null);
     url: string;
-    @Inject(() => ContextResolver) private context: ContextResolver
-    constructor(
 
-    ) {
+    constructor() {
         setTimeout(() => {
             this.url = window.location.pathname;
             this.start({ pushState: true }).subscribe();
             this.activatedRoute.next(this.getSnapshot());
             this.navigate(this.url + window.location.search, { params: this.getAllUrlParams(this.url) });
         });
-        this.onChange()
-            .subscribe(async () => {
-                const snapshot = this.getSnapshot();
-                this.activatedRoute.next(snapshot);
-                await this.context.resolve(snapshot.route);
-            });
+
     }
 
     private navigateInternal(route: string, options?: { trigger?: boolean, replace?: boolean, }) {

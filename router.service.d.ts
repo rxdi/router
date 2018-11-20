@@ -3,7 +3,6 @@ export declare class Router {
     private locationBar;
     activatedRoute: BehaviorSubject<any>;
     url: string;
-    private context;
     constructor();
     private navigateInternal;
     navigate(route: string, options?: {

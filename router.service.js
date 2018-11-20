@@ -7,18 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-import { Service, Inject } from "@rxdi/core";
+import { Service } from "@rxdi/core";
 import history from './history/history';
 import { Observable, of, BehaviorSubject } from "rxjs";
-import { ContextResolver } from "./context-resolver.service";
 let Router = class Router {
     constructor() {
         this.locationBar = new history();
@@ -29,12 +20,6 @@ let Router = class Router {
             this.activatedRoute.next(this.getSnapshot());
             this.navigate(this.url + window.location.search, { params: this.getAllUrlParams(this.url) });
         });
-        this.onChange()
-            .subscribe(() => __awaiter(this, void 0, void 0, function* () {
-            const snapshot = this.getSnapshot();
-            this.activatedRoute.next(snapshot);
-            yield this.context.resolve(snapshot.route);
-        }));
     }
     navigateInternal(route, options) {
         this.url = route;
@@ -111,10 +96,6 @@ let Router = class Router {
         return of(true);
     }
 };
-__decorate([
-    Inject(() => ContextResolver),
-    __metadata("design:type", ContextResolver)
-], Router.prototype, "context", void 0);
 Router = __decorate([
     Service(),
     __metadata("design:paramtypes", [])

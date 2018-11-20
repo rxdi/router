@@ -15,14 +15,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Service, Container, Inject } from "@rxdi/core";
-import { constructorWatcherService } from "@rxdi/core/services/constructor-watcher";
+import { Service, Container } from "@rxdi/core";
 import { RoutesService } from "./routes.service";
 import { Router } from "./history";
 let ContextResolver = class ContextResolver {
-    constructor(routes) {
+    constructor(routes, router) {
         this.routes = routes;
-        this.moduleWatcher = constructorWatcherService;
+        this.router = router;
+        this.router.onChange()
+            .subscribe(() => __awaiter(this, void 0, void 0, function* () {
+            const snapshot = this.router.getSnapshot();
+            this.router.activatedRoute.next(snapshot);
+            yield this.resolve(snapshot.route);
+        }));
     }
     resolve(path) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,12 +42,9 @@ let ContextResolver = class ContextResolver {
         });
     }
 };
-__decorate([
-    Inject(() => Router),
-    __metadata("design:type", Router)
-], ContextResolver.prototype, "router", void 0);
 ContextResolver = __decorate([
     Service(),
-    __metadata("design:paramtypes", [RoutesService])
+    __metadata("design:paramtypes", [RoutesService,
+        Router])
 ], ContextResolver);
 export { ContextResolver };

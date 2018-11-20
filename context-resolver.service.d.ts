@@ -1,8 +1,8 @@
 import { RoutesService } from "./routes.service";
+import { Router } from "./history";
 export declare class ContextResolver {
     private routes;
-    private moduleWatcher;
     private router;
-    constructor(routes: RoutesService);
+    constructor(routes: RoutesService, router: Router);
     resolve(path: string): Promise<boolean>;
 }
