@@ -6,6 +6,6 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^3.0.3",
-    "@rxdi/core": "^0.0.388"
+    "@rxdi/core": "^0.0.390"
   }
 }
