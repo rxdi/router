@@ -10,6 +10,6 @@
   },
   "devDependencies": {
     "typescript": "^3.0.3",
-    "@rxdi/core": "^0.0.414"
+    "@rxdi/core": "^0.0.416"
   }
 }
