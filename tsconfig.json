@@ -2,13 +2,14 @@
     "compilerOptions": {
         "declaration": true,
         "target": "es6",
-        "baseUrl": "src",
+        "baseUrl": ".",
         "module": "esnext",
         "stripInternal": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "moduleResolution": "node",
-        "outDir": ".",
+        "paths": { "*": ["types/*"] },
+        "outDir": "dist",
         "lib": [
             "es2017",
             "es2016",
@@ -23,7 +24,7 @@
         ],
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*", "types"
     ],
     "files": [
         "./src/index.ts"

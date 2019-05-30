@@ -8,8 +8,14 @@
     "type": "git",
     "url": "https://github.com/rxdi/router"
   },
+  "dependencies": {
+    "@vaadin/router": "^1.2.0"
+  },
   "devDependencies": {
     "typescript": "^3.0.3",
     "@rxdi/core": "^0.2.25"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "typings": "./dist/index.d.ts"
 }

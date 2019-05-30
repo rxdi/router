@@ -5,23 +5,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var RouterModule_1;
-import { Module } from "@rxdi/core";
-import { ContextResolver } from "./context-resolver.service";
-import { Router } from "./router.service";
-import { RoutesService } from "./routes.service";
+import { Module } from '@rxdi/core';
+import { Router } from '@vaadin/router';
 let RouterModule = RouterModule_1 = class RouterModule {
-    static forRoot(r) {
+    static forRoot(element, routes) {
         return {
             module: RouterModule_1,
             services: [
                 {
-                    provide: RoutesService,
-                    deps: [RoutesService],
-                    useFactory: (routesService) => routesService.set(r)
-                },
-                ...r.map(val => ({ provide: `rxdi-route-${val.path}`, useFactory: () => val.component })),
-                ContextResolver,
-                Router
+                    provide: 'vaadin-router',
+                    useFactory: () => {
+                        const router = new Router(document.getElementById(element));
+                        router.setRoutes(routes);
+                        return router;
+                    }
+                }
             ]
         };
     }
@@ -30,8 +28,3 @@ RouterModule = RouterModule_1 = __decorate([
     Module()
 ], RouterModule);
 export { RouterModule };
-export * from './context-resolver.service';
-export { Route } from './route.model';
-export * from './history/index';
-export * from './routes.service';
-export * from './decorators/index';
