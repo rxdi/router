@@ -1,17 +1,18 @@
 import { Module, ModuleWithServices } from '@rxdi/core';
 import { Router } from '@vaadin/router';
+import { VaadinRouter, Route } from './injection.tokens';
 
 @Module()
 export class RouterModule {
-  public static forRoot(
+  public static forRoot<C>(
     element: string,
-    routes: { path: string; component: string; action?: () => Promise<any> }[]
+    routes: Route<C>[]
   ): ModuleWithServices {
     return {
       module: RouterModule,
       services: [
         {
-          provide: 'vaadin-router',
+          provide: VaadinRouter,
           useFactory: () => {
             const router = new Router(document.getElementById(element));
             router.setRoutes(routes);
@@ -22,3 +23,5 @@ export class RouterModule {
     };
   }
 }
+
+export * from './injection.tokens';

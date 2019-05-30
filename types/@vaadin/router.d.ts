@@ -1,7 +1,7 @@
 
 export interface Route {
     path: string;
-    component: string;
+    component: any;
     action?: any;
 }
 
