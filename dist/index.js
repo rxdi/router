@@ -6,21 +6,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var RouterModule_1;
 import { Module } from '@rxdi/core';
-import { Router } from '@vaadin/router';
-import { VaadinRouter } from './injection.tokens';
+import { Outlet, Routes, RouterOptions } from './injection.tokens';
+import { Router } from './router';
 let RouterModule = RouterModule_1 = class RouterModule {
-    static forRoot(element, routes) {
+    static forRoot(element, routes, options) {
         return {
             module: RouterModule_1,
             services: [
                 {
-                    provide: VaadinRouter,
-                    useFactory: () => {
-                        const router = new Router(document.getElementById(element));
+                    provide: RouterOptions,
+                    useValue: options || {}
+                },
+                {
+                    provide: Outlet,
+                    useValue: element
+                },
+                {
+                    provide: Routes,
+                    deps: [Router],
+                    useFactory: (router) => {
                         router.setRoutes(routes);
                         return router;
                     }
-                }
+                },
+                Router,
             ]
         };
     }
@@ -30,3 +39,4 @@ RouterModule = RouterModule_1 = __decorate([
 ], RouterModule);
 export { RouterModule };
 export * from './injection.tokens';
+export * from './router';
