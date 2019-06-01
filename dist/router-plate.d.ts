@@ -1,11 +1,8 @@
-import { OnInit } from "@rxdi/core";
 import { Router as VaadinRouter } from "@vaadin/router";
 import { Route, RouterOptions, NavigationTrigger } from "./injection.tokens";
-export declare class Router<C = {}> extends VaadinRouter implements OnInit {
-    private element;
-    private options;
+export declare class RouterPlate<C = {}> extends VaadinRouter {
+    activePath: string;
     constructor(element: string, options: RouterOptions);
-    OnInit(): void;
     /**
      * Takes current routes and set it
      * @param routes: Route<C>[]

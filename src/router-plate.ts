@@ -1,16 +1,18 @@
-import { Injectable, Inject } from "@rxdi/core";
+import { Injectable, Inject, Container } from "@rxdi/core";
 import { Router as VaadinRouter } from "@vaadin/router";
 import { Outlet, Route, RouterOptions, NavigationTrigger } from "./injection.tokens";
 
 @Injectable()
-export class Router<C = {}> extends VaadinRouter {
+export class RouterPlate<C = {}> extends VaadinRouter {
+    activePath: string = '/';
     constructor(
-        @Inject(Outlet) private element: string,
-        @Inject(RouterOptions) private options: RouterOptions
+        @Inject(Outlet) element: string,
+        @Inject(RouterOptions) options: RouterOptions
     ) {
         super(document.getElementById(element), options);
         window.addEventListener('vaadin-router-location-changed', (event) => {
             console.log(`You are at '${event['detail'].location.pathname}'`);
+            this.activePath = event['detail'].location.pathname;
         });
     }
 
@@ -38,6 +40,10 @@ export class Router<C = {}> extends VaadinRouter {
      * @returns void
      */
     go(path: string): boolean {
+        if (this.activePath === path) {
+            return false;
+        }
+        this.activePath = path;
         // window.dispatchEvent(new CustomEvent('vaadin-router-go', {detail: {pathname: '/to/path'}}));
         return VaadinRouter.go(path)
     }
@@ -125,6 +131,6 @@ export class Router<C = {}> extends VaadinRouter {
 
 
     getRouteParams() {
-        return location['params']
+        return this.location.params
     }
 }

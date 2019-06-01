@@ -5,9 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var RouterModule_1;
-import { Module } from '@rxdi/core';
+import { Module, Container } from '@rxdi/core';
 import { Outlet, Routes, RouterOptions } from './injection.tokens';
-import { Router } from './router';
+import { RouterPlate } from './router-plate';
 let RouterModule = RouterModule_1 = class RouterModule {
     static forRoot(element, routes, options) {
         return {
@@ -23,13 +23,13 @@ let RouterModule = RouterModule_1 = class RouterModule {
                 },
                 {
                     provide: Routes,
-                    deps: [Router],
+                    deps: [RouterPlate],
                     useFactory: (router) => {
                         router.setRoutes(routes);
                         return router;
                     }
                 },
-                Router,
+                RouterPlate,
             ]
         };
     }
@@ -39,4 +39,5 @@ RouterModule = RouterModule_1 = __decorate([
 ], RouterModule);
 export { RouterModule };
 export * from './injection.tokens';
-export * from './router';
+export * from './router-plate';
+export const Router = () => Container.get(RouterPlate);

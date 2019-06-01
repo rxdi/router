@@ -21,11 +21,15 @@ let Router = class Router extends VaadinRouter {
         window.addEventListener('vaadin-router-location-changed', (event) => {
             console.log(`You are at '${event['detail'].location.pathname}'`);
         });
+        window['router'] = this;
+    }
+    OnInit() {
+        window['router'] = this;
     }
     /**
      * Takes current routes and set it
      * @param routes: Route<C>[]
-     * @returns void
+     * @returns Route<C>[]
      */
     setRoutes(routes) {
         super.setRoutes(routes);

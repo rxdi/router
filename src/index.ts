@@ -1,6 +1,6 @@
-import { Module, ModuleWithServices } from '@rxdi/core';
+import { Module, ModuleWithServices, Container } from '@rxdi/core';
 import { Route, Outlet, Routes, RouterOptions } from './injection.tokens';
-import { Router } from './router';
+import { RouterPlate } from './router-plate';
 
 @Module()
 export class RouterModule {
@@ -22,17 +22,21 @@ export class RouterModule {
         },
         {
           provide: Routes,
-          deps: [Router],
-          useFactory: (router: Router) => {
+          deps: [RouterPlate],
+          useFactory: (router: RouterPlate) => {
             router.setRoutes(routes);
             return router;
           }
         },
-        Router,
+        RouterPlate,
       ]
     };
   }
 }
 
 export * from './injection.tokens';
-export * from './router';
+export * from './router-plate';
+
+export const Router = () => Container.get(RouterPlate);
+
+

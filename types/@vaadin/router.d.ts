@@ -23,4 +23,8 @@ export declare class Router {
     subscribe(): void;
     unsubscribe(): void;
     addRoutes(routes: Route<C> | Route<C>[]): Route[];
+    location: {
+        routes: Route<C>[];
+        params: any
+    }
 }
