@@ -1,6 +1,5 @@
 import { Module, ModuleWithServices, Container } from '@rxdi/core';
-import { Route, Outlet, Routes, RouterOptions } from './injection.tokens';
-import { RouterPlate } from './router-plate';
+import { Route, Routes, RouterOptions } from './injection.tokens';
 import { RouterService } from './router.service';
 import { BehaviorSubject } from 'rxjs';
 import { RouterComponent } from './router.component';
@@ -42,6 +41,6 @@ export class RouterModule {
 }
 
 export * from './injection.tokens';
-export * from './router-plate';
+export * from './outlet';
 
-export const Router = () => (Container.get('router-plate') as BehaviorSubject<RouterPlate>).getValue();
+

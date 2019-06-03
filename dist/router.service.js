@@ -20,7 +20,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { ModuleService, Service, Inject } from '@rxdi/core';
 import { Routes } from './injection.tokens';
-import { RouterPlate } from './router-plate';
+import { Outlet } from './outlet';
 import { BehaviorSubject } from 'rxjs';
 let RouterService = class RouterService {
     constructor(moduleService, routes, routerInitialized, routerPlate) {
@@ -34,7 +34,7 @@ let RouterService = class RouterService {
             if (routerOutlet) {
                 yield routerOutlet.requestUpdate();
                 const el = routerOutlet.shadowRoot.querySelector('#router-outlet');
-                const router = new RouterPlate(el, { baseUrl: '/' });
+                const router = new Outlet(el, { baseUrl: '/' });
                 router.setRoutes(this.routes);
                 this.routerPlate.next(router);
                 this.subscription.unsubscribe();

@@ -1,16 +1,18 @@
 import { Inject } from '@rxdi/core';
 import { Router as VaadinRouter } from '@vaadin/router';
 import {
-  Outlet,
+  RouterRoutlet,
   Route,
   RouterOptions,
   NavigationTrigger
 } from './injection.tokens';
 
-export class RouterPlate<C = {}> extends VaadinRouter {
+export class Outlet<C = {}> extends VaadinRouter {
+
   activePath: string = '/';
+
   constructor(
-    @Inject(Outlet) element: Element,
+    @Inject(RouterRoutlet) element: Element,
     @Inject(RouterOptions) options: RouterOptions
   ) {
     super(element, options);

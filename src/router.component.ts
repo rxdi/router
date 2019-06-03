@@ -8,14 +8,14 @@ import {
 } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { BehaviorSubject } from 'rxjs';
-import { RouterPlate } from './router-plate';
+import { Outlet } from './outlet';
 
 import { render } from 'lit-html';
 
 @customElement('router-outlet')
 @Component()
 export class RouterComponent extends LitElement {
-  private routerPlate: BehaviorSubject<RouterPlate> = Container.get('router-plate');
+  private routerPlate: BehaviorSubject<Outlet> = Container.get('router-plate');
   private routerInitialized: BehaviorSubject<LitElement> = Container.get(
     'router-initialized'
   );
