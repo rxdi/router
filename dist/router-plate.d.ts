@@ -1,8 +1,8 @@
-import { Router as VaadinRouter } from "@vaadin/router";
-import { Route, RouterOptions, NavigationTrigger } from "./injection.tokens";
+import { Router as VaadinRouter } from '@vaadin/router';
+import { Route, RouterOptions, NavigationTrigger } from './injection.tokens';
 export declare class RouterPlate<C = {}> extends VaadinRouter {
     activePath: string;
-    constructor(element: string, options: RouterOptions);
+    constructor(element: Element, options: RouterOptions);
     /**
      * Takes current routes and set it
      * @param routes: Route<C>[]

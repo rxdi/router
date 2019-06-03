@@ -6,10 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var RouterModule_1;
 import { Module, Container } from '@rxdi/core';
-import { Outlet, Routes, RouterOptions } from './injection.tokens';
-import { RouterPlate } from './router-plate';
+import { Routes, RouterOptions } from './injection.tokens';
+import { RouterService } from './router.service';
+import { BehaviorSubject } from 'rxjs';
+import { RouterComponent } from './router.component';
 let RouterModule = RouterModule_1 = class RouterModule {
-    static forRoot(element, routes, options) {
+    static forRoot(routes, options) {
         return {
             module: RouterModule_1,
             services: [
@@ -18,19 +20,24 @@ let RouterModule = RouterModule_1 = class RouterModule {
                     useValue: options || {}
                 },
                 {
-                    provide: Outlet,
-                    useValue: element
+                    provide: Routes,
+                    useValue: routes
                 },
                 {
-                    provide: Routes,
-                    deps: [RouterPlate],
-                    useFactory: (router) => {
-                        router.setRoutes(routes);
-                        return router;
-                    }
+                    provide: 'router-initialized',
+                    useFactory: () => new BehaviorSubject(null)
                 },
-                RouterPlate,
-            ]
+                {
+                    provide: 'router-plate',
+                    useFactory: () => new BehaviorSubject(null)
+                },
+                {
+                    provide: 'initRouter',
+                    deps: [RouterService],
+                    useFactory: (res) => res
+                }
+            ],
+            components: [RouterComponent]
         };
     }
 };
@@ -40,4 +47,4 @@ RouterModule = RouterModule_1 = __decorate([
 export { RouterModule };
 export * from './injection.tokens';
 export * from './router-plate';
-export const Router = () => Container.get(RouterPlate);
+export const Router = () => Container.get('router-plate').getValue();

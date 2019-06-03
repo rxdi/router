@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Injectable, Inject } from "@rxdi/core";
-import { Router as VaadinRouter } from "@vaadin/router";
-import { Outlet, RouterOptions } from "./injection.tokens";
+import { Inject } from '@rxdi/core';
+import { Router as VaadinRouter } from '@vaadin/router';
+import { Outlet, RouterOptions } from './injection.tokens';
 let RouterPlate = class RouterPlate extends VaadinRouter {
     constructor(element, options) {
-        super(document.getElementById(element), options);
+        super(element, options);
         this.activePath = '/';
-        window.addEventListener('vaadin-router-location-changed', (event) => {
+        window.addEventListener('vaadin-router-location-changed', event => {
             console.log(`You are at '${event['detail'].location.pathname}'`);
             this.activePath = event['detail'].location.pathname;
         });
@@ -126,9 +126,8 @@ let RouterPlate = class RouterPlate extends VaadinRouter {
     }
 };
 RouterPlate = __decorate([
-    Injectable(),
     __param(0, Inject(Outlet)),
     __param(1, Inject(RouterOptions)),
-    __metadata("design:paramtypes", [String, Object])
+    __metadata("design:paramtypes", [Element, Object])
 ], RouterPlate);
 export { RouterPlate };

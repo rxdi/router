@@ -2,6 +2,7 @@ import { InjectionToken } from '@rxdi/core';
 export declare const Outlet: InjectionToken<unknown>;
 export declare const Routes: InjectionToken<Route<any>[]>;
 export declare const RouterOptions: InjectionToken<RouterOptions>;
+export declare const Router: InjectionToken<RouterOptions>;
 export interface RouterOptions {
     baseUrl: string;
 }
