@@ -1,5 +1,5 @@
 import { ModuleService, Service, Inject } from '@rxdi/core';
-import { Routes, Route } from './injection.tokens';
+import { Routes, Route, RouterOptions } from './injection.tokens';
 import { Outlet } from './outlet';
 import { LitElement } from 'lit-element';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -11,7 +11,8 @@ export class RouterService {
     private moduleService: ModuleService,
     @Inject(Routes) private routes: Route<any>[],
     @Inject('router-initialized') private routerInitialized: BehaviorSubject<LitElement>,
-    @Inject('router-plate') private routerPlate: BehaviorSubject<Outlet>
+    @Inject('router-outlet') private routerPlate: BehaviorSubject<Outlet>,
+    @Inject(RouterOptions) private routerOptions: RouterOptions
   ) {
     this.subscription = this.routerInitialized
       .asObservable()
@@ -19,7 +20,7 @@ export class RouterService {
         if (routerOutlet) {
           await routerOutlet.requestUpdate();
           const el = routerOutlet.shadowRoot.querySelector('#router-outlet');
-          const router = new Outlet(el, { baseUrl: '/' });
+          const router = new Outlet(el, this.routerOptions);
           router.setRoutes(this.routes);
           this.routerPlate.next(router);
           this.subscription.unsubscribe();
@@ -27,7 +28,7 @@ export class RouterService {
       });
   }
 
-  getMetaDescriptors(): any[] {
+  private getMetaDescriptors(): any[] {
     const descriptors: any[] = [];
     Array.from(this.moduleService.watcherService._constructors.keys())
       .filter(key => {

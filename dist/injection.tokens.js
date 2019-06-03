@@ -5,7 +5,7 @@ export const RouterOptions = new InjectionToken('router-options');
 export function Router() {
     return (target, propertyKey) => {
         Object.defineProperty(target, propertyKey, {
-            get: () => Container.get('router-plate').getValue()
+            get: () => Container.get('router-outlet').getValue()
         });
     };
 }

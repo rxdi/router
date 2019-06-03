@@ -11,7 +11,7 @@ export interface NavigationTrigger {}
 export declare class Router {
     public static go(path): boolean;
     static setTriggers(triggers: NavigationTrigger): void
-    constructor(element: any, options: { baseUrl: string; });
+    constructor(element: any, options: { baseUrl?: string; });
     setRoutes(routes: Route[]): void;
     setOutlet(outlet: Node): void;
     urlForName(url: string, params: any): string;

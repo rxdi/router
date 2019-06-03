@@ -15,7 +15,7 @@ import { render } from 'lit-html';
 @customElement('router-outlet')
 @Component()
 export class RouterComponent extends LitElement {
-  private routerPlate: BehaviorSubject<Outlet> = Container.get('router-plate');
+  private routerOutlet: BehaviorSubject<Outlet> = Container.get('router-outlet');
   private routerInitialized: BehaviorSubject<LitElement> = Container.get(
     'router-initialized'
   );
@@ -29,7 +29,7 @@ export class RouterComponent extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.routerInitialized.next(this);
-    this.routerPlate.subscribe(mounted => {
+    this.routerOutlet.subscribe(mounted => {
       if (mounted) {
         render(html`${unsafeHTML(this.header)}`, this.shadowRoot.querySelector('header'));
         render(html`${unsafeHTML(this.footer)}`, this.shadowRoot.querySelector('footer'));
@@ -43,8 +43,3 @@ export class RouterComponent extends LitElement {
 
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'router-outlet': RouterComponent;
-  }
-}

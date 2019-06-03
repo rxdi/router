@@ -80,7 +80,7 @@ CommonService = __decorate([
     Service(),
     __param(1, Inject(Routes)),
     __param(2, Inject('router-initialized')),
-    __param(3, Inject('router-plate')),
+    __param(3, Inject('router-outlet')),
     __metadata("design:paramtypes", [ModuleService, Array, BehaviorSubject,
         BehaviorSubject])
 ], CommonService);

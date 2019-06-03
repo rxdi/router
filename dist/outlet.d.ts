@@ -1,6 +1,7 @@
 import { Router as VaadinRouter } from '@vaadin/router';
 import { Route, RouterOptions, NavigationTrigger } from './injection.tokens';
 export declare class Outlet<C = {}> extends VaadinRouter {
+    private options;
     activePath: string;
     constructor(element: Element, options: RouterOptions);
     /**

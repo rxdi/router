@@ -26,7 +26,7 @@ export class RouterModule {
           useFactory: () => new BehaviorSubject(null)
         },
         {
-          provide: 'router-plate',
+          provide: 'router-outlet',
           useFactory: () => new BehaviorSubject(null)
         },
         {
@@ -44,3 +44,8 @@ export * from './injection.tokens';
 export * from './outlet';
 
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'router-outlet': RouterComponent;
+  }
+}

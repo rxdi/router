@@ -10,7 +10,8 @@ export const RouterOptions = new InjectionToken<RouterOptions>(
 
 
 export interface RouterOptions {
-  baseUrl: string;
+  baseUrl?: string;
+  log?: boolean;
 }
 
 export interface Route<C> {
@@ -26,7 +27,7 @@ export interface NavigationTrigger {}
 export function Router() {
   return (target, propertyKey) => {
     Object.defineProperty(target, propertyKey, {
-      get: () => (Container.get('router-plate') as BehaviorSubject<Outlet>).getValue()
+      get: () => (Container.get('router-outlet') as BehaviorSubject<Outlet>).getValue()
     });
   };
 }

@@ -3,7 +3,8 @@ export declare const RouterRoutlet: InjectionToken<unknown>;
 export declare const Routes: InjectionToken<Route<any>[]>;
 export declare const RouterOptions: InjectionToken<RouterOptions>;
 export interface RouterOptions {
-    baseUrl: string;
+    baseUrl?: string;
+    log?: boolean;
 }
 export interface Route<C> {
     path: string;

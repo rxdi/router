@@ -14,7 +14,7 @@ import { render } from 'lit-html';
 let RouterComponent = class RouterComponent extends LitElement {
     constructor() {
         super(...arguments);
-        this.routerPlate = Container.get('router-plate');
+        this.routerOutlet = Container.get('router-outlet');
         this.routerInitialized = Container.get('router-initialized');
         this.header = '';
         this.footer = '';
@@ -25,7 +25,7 @@ let RouterComponent = class RouterComponent extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         this.routerInitialized.next(this);
-        this.routerPlate.subscribe(mounted => {
+        this.routerOutlet.subscribe(mounted => {
             if (mounted) {
                 render(html `${unsafeHTML(this.header)}`, this.shadowRoot.querySelector('header'));
                 render(html `${unsafeHTML(this.footer)}`, this.shadowRoot.querySelector('footer'));

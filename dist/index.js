@@ -28,7 +28,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
                     useFactory: () => new BehaviorSubject(null)
                 },
                 {
-                    provide: 'router-plate',
+                    provide: 'router-outlet',
                     useFactory: () => new BehaviorSubject(null)
                 },
                 {

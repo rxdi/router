@@ -1,7 +1,5 @@
-import { Inject } from '@rxdi/core';
 import { Router as VaadinRouter } from '@vaadin/router';
 import {
-  RouterRoutlet,
   Route,
   RouterOptions,
   NavigationTrigger
@@ -12,12 +10,14 @@ export class Outlet<C = {}> extends VaadinRouter {
   activePath: string = '/';
 
   constructor(
-    @Inject(RouterRoutlet) element: Element,
-    @Inject(RouterOptions) options: RouterOptions
+    element: Element,
+    private options: RouterOptions
   ) {
     super(element, options);
     window.addEventListener('vaadin-router-location-changed', event => {
-      console.log(`You are at '${event['detail'].location.pathname}'`);
+      if (this.options.log) {
+        console.log(`You are at '${event['detail'].location.pathname}'`);
+      }
       this.activePath = event['detail'].location.pathname;
     });
   }
