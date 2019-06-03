@@ -30,16 +30,14 @@ let RouterService = class RouterService {
         this.routerPlate = routerPlate;
         this.subscription = this.routerInitialized
             .asObservable()
-            .subscribe((self) => __awaiter(this, void 0, void 0, function* () {
-            if (self) {
-                yield self.requestUpdate();
-                const el = self.shadowRoot.querySelector('#router-outlet');
+            .subscribe((routerOutlet) => __awaiter(this, void 0, void 0, function* () {
+            if (routerOutlet) {
+                yield routerOutlet.requestUpdate();
+                const el = routerOutlet.shadowRoot.querySelector('#router-outlet');
                 const router = new RouterPlate(el, { baseUrl: '/' });
                 router.setRoutes(this.routes);
                 this.routerPlate.next(router);
                 this.subscription.unsubscribe();
-                debugger;
-                this.getMetaDescriptors();
             }
         }));
     }

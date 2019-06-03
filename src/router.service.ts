@@ -1,4 +1,4 @@
-import { ModuleService, Service, Inject, Container } from '@rxdi/core';
+import { ModuleService, Service, Inject } from '@rxdi/core';
 import { Routes, Route } from './injection.tokens';
 import { RouterPlate } from './router-plate';
 import { LitElement } from 'lit-element';
@@ -15,16 +15,14 @@ export class RouterService {
   ) {
     this.subscription = this.routerInitialized
       .asObservable()
-      .subscribe(async self => {
-        if (self) {
-          await self.requestUpdate();
-          const el = self.shadowRoot.querySelector('#router-outlet');
+      .subscribe(async routerOutlet => {
+        if (routerOutlet) {
+          await routerOutlet.requestUpdate();
+          const el = routerOutlet.shadowRoot.querySelector('#router-outlet');
           const router = new RouterPlate(el, { baseUrl: '/' });
           router.setRoutes(this.routes);
           this.routerPlate.next(router);
           this.subscription.unsubscribe();
-          debugger
-          this.getMetaDescriptors();
         }
       });
   }
