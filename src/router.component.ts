@@ -15,7 +15,9 @@ import { render } from 'lit-html';
 @customElement('router-outlet')
 @Component()
 export class RouterComponent extends LitElement {
-  private routerOutlet: BehaviorSubject<Outlet> = Container.get('router-outlet');
+  private routerOutlet: BehaviorSubject<Outlet> = Container.get(
+    'router-outlet'
+  );
   private routerInitialized: BehaviorSubject<LitElement> = Container.get(
     'router-initialized'
   );
@@ -31,15 +33,33 @@ export class RouterComponent extends LitElement {
     this.routerInitialized.next(this);
     this.routerOutlet.subscribe(mounted => {
       if (mounted) {
-        render(html`${unsafeHTML(this.header)}`, this.shadowRoot.querySelector('header'));
-        render(html`${unsafeHTML(this.footer)}`, this.shadowRoot.querySelector('footer'));
+        if (this.header) {
+          render(
+            html`
+              ${unsafeHTML(this.header)}
+            `,
+            this.shadowRoot.querySelector('header')
+          );
+        }
+        if (this.footer) {
+          render(
+            html`
+              ${unsafeHTML(this.footer)}
+            `,
+            this.shadowRoot.querySelector('footer')
+          );
+        }
       }
     });
   }
 
   render() {
-    return html`<header></header>${this.outlet}<footer></footer>`;
+    return html`
+      <header></header>
+      <slot></slot>
+      ${this.outlet}
+      <slot></slot>
+      <footer></footer>
+    `;
   }
-
 }
-
