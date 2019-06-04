@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@rxdi/core");
 const lit_html_1 = require("@rxdi/lit-html");
-const lit_html_2 = require("@rxdi/lit-html");
 const injection_tokens_1 = require("./injection.tokens");
 let RouterComponent = class RouterComponent extends lit_html_1.LitElement {
     constructor() {
@@ -43,12 +42,12 @@ let RouterComponent = class RouterComponent extends lit_html_1.LitElement {
             if (mounted) {
                 if (this.header) {
                     lit_html_1.render(lit_html_1.html `
-              ${lit_html_2.unsafeHTML(this.header)}
+              ${lit_html_1.unsafeHTML(this.header)}
             `, this.shadowRoot.querySelector('header'));
                 }
                 if (this.footer) {
                     lit_html_1.render(lit_html_1.html `
-              ${lit_html_2.unsafeHTML(this.footer)}
+              ${lit_html_1.unsafeHTML(this.footer)}
             `, this.shadowRoot.querySelector('footer'));
                 }
             }
@@ -80,7 +79,6 @@ __decorate([
     __metadata("design:type", String)
 ], RouterComponent.prototype, "unsafeHtml", void 0);
 RouterComponent = __decorate([
-    lit_html_1.customElement(injection_tokens_1.RouterRoutlet),
-    core_1.Component()
+    lit_html_1.customElement(injection_tokens_1.RouterRoutlet)
 ], RouterComponent);
 exports.RouterComponent = RouterComponent;

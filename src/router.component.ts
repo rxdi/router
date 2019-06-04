@@ -1,10 +1,8 @@
-import { Component, Injector } from '@rxdi/core';
-import { render, LitElement, customElement, html, property } from '@rxdi/lit-html';
-import { unsafeHTML } from '@rxdi/lit-html';
+import { Injector } from '@rxdi/core';
+import { unsafeHTML, render, LitElement, customElement, html, property } from '@rxdi/lit-html';
 import { RouterRoutlet, RouterInitialized } from './injection.tokens';
 
 @customElement(RouterRoutlet)
-@Component()
 export class RouterComponent extends LitElement {
   @Injector(RouterRoutlet) private routerOutlet: RouterRoutlet;
   @Injector(RouterInitialized) private routerInitialized: RouterInitialized;
