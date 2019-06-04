@@ -3,7 +3,7 @@ import { Outlet } from './outlet';
 import { RouterComponent } from './router.component';
 export interface NavigationTrigger {
 }
-export declare function Router(): (target: any, propertyKey: any) => void;
+export declare function Router(): (target: Object, propertyKey: string) => void;
 export declare type Router = Outlet;
 export interface Route<C> {
     path: string;

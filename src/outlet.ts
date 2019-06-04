@@ -129,7 +129,4 @@ export class Outlet<C = {}> extends VaadinRouter {
     return super.addRoutes(routes);
   }
 
-  getRouteParams() {
-    return this.location.params;
-  }
 }

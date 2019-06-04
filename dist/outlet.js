@@ -112,8 +112,5 @@ class Outlet extends router_1.Router {
     addRoutes(routes) {
         return super.addRoutes(routes);
     }
-    getRouteParams() {
-        return this.location.params;
-    }
 }
 exports.Outlet = Outlet;

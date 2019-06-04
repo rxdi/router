@@ -6,6 +6,7 @@ export declare class RouterModule {
 }
 export * from './injection.tokens';
 export * from './outlet';
+export * from './decorators';
 declare global {
     interface HTMLElementTagNameMap {
         'router-outlet': RouterComponent;

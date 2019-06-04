@@ -6,7 +6,8 @@ import {
   RouterOptions,
   Route,
   Routes,
-  RouterRoutlet
+  RouterRoutlet,
+  RouterInitialized
 } from './injection.tokens';
 
 @Module()
@@ -27,7 +28,7 @@ export class RouterModule {
           useValue: routes
         },
         {
-          provide: 'router-initialized',
+          provide: RouterInitialized,
           useFactory: () => new BehaviorSubject(null)
         },
         {
@@ -37,7 +38,7 @@ export class RouterModule {
         {
           provide: 'initRouter',
           deps: [RouterService],
-          useFactory: (res: RouterService) => res
+          useFactory: (r: RouterService) => r
         }
       ],
       components: [RouterComponent]
@@ -47,6 +48,7 @@ export class RouterModule {
 
 export * from './injection.tokens';
 export * from './outlet';
+export * from './decorators';
 
 declare global {
   interface HTMLElementTagNameMap {

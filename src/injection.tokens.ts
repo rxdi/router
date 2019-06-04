@@ -6,14 +6,16 @@ import { RouterComponent } from './router.component';
 export interface NavigationTrigger {}
 
 export function Router() {
-  return (target, propertyKey) => {
+  return (target: Object, propertyKey: string) => {
     Object.defineProperty(target, propertyKey, {
       get: () =>
         (Container.get(RouterRoutlet) as BehaviorSubject<Outlet>).getValue()
     });
   };
 }
+
 export type Router = Outlet;
+
 export interface Route<C> {
   path: string;
   component: C;

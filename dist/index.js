@@ -29,7 +29,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
                     useValue: routes
                 },
                 {
-                    provide: 'router-initialized',
+                    provide: injection_tokens_1.RouterInitialized,
                     useFactory: () => new rxjs_1.BehaviorSubject(null)
                 },
                 {
@@ -39,7 +39,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
                 {
                     provide: 'initRouter',
                     deps: [router_service_1.RouterService],
-                    useFactory: (res) => res
+                    useFactory: (r) => r
                 }
             ],
             components: [router_component_1.RouterComponent]
@@ -52,3 +52,4 @@ RouterModule = RouterModule_1 = __decorate([
 exports.RouterModule = RouterModule;
 __export(require("./injection.tokens"));
 __export(require("./outlet"));
+__export(require("./decorators"));

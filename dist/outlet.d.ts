@@ -74,5 +74,4 @@ export declare class Outlet<C = {}> extends VaadinRouter {
      */
     unsubscribe(): void;
     addRoutes(routes: Route<C> | Route<C>[]): Route<C>[];
-    getRouteParams(): any;
 }
