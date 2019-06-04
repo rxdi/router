@@ -1,12 +1,15 @@
-import { Container } from '@rxdi/core';
-export function Router() {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = require("@rxdi/core");
+function Router() {
     return (target, propertyKey) => {
         Object.defineProperty(target, propertyKey, {
-            get: () => Container.get(RouterRoutlet).getValue()
+            get: () => core_1.Container.get(exports.RouterRoutlet).getValue()
         });
     };
 }
-export const RouterRoutlet = 'router-outlet';
-export const RouterInitialized = 'router-initialized';
-export const Routes = 'router-routes';
-export const RouterOptions = 'router-options';
+exports.Router = Router;
+exports.RouterRoutlet = 'router-outlet';
+exports.RouterInitialized = 'router-initialized';
+exports.Routes = 'router-routes';
+exports.RouterOptions = 'router-options';

@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,9 +19,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Service, Inject } from '@rxdi/core';
-import { Outlet } from './outlet';
-import { Routes, RouterOptions, RouterRoutlet, RouterInitialized } from './injection.tokens';
+Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = require("@rxdi/core");
+const outlet_1 = require("./outlet");
+const injection_tokens_1 = require("./injection.tokens");
 let RouterService = class RouterService {
     constructor(routes, routerOptions, routerInitialized, routerPlate) {
         this.routes = routes;
@@ -33,7 +35,7 @@ let RouterService = class RouterService {
             if (routerOutlet) {
                 yield routerOutlet.requestUpdate();
                 const el = routerOutlet.shadowRoot.querySelector(`#${routerOutlet.id}`);
-                const router = new Outlet(el, this.routerOptions);
+                const router = new outlet_1.Outlet(el, this.routerOptions);
                 router.setRoutes(this.routes);
                 this.routerPlate.next(router);
                 this.subscription.unsubscribe();
@@ -42,11 +44,11 @@ let RouterService = class RouterService {
     }
 };
 RouterService = __decorate([
-    Service(),
-    __param(0, Inject(Routes)),
-    __param(1, Inject(RouterOptions)),
-    __param(2, Inject(RouterInitialized)),
-    __param(3, Inject(RouterRoutlet)),
+    core_1.Service(),
+    __param(0, core_1.Inject(injection_tokens_1.Routes)),
+    __param(1, core_1.Inject(injection_tokens_1.RouterOptions)),
+    __param(2, core_1.Inject(injection_tokens_1.RouterInitialized)),
+    __param(3, core_1.Inject(injection_tokens_1.RouterRoutlet)),
     __metadata("design:paramtypes", [Array, Object, Object, Object])
 ], RouterService);
-export { RouterService };
+exports.RouterService = RouterService;

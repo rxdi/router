@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,14 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Injector } from '@rxdi/core';
-import { render, LitElement, customElement, html, property } from '@rxdi/lit-html';
-import { unsafeHTML } from '@rxdi/lit-html';
-import { RouterRoutlet, RouterInitialized } from './injection.tokens';
-let RouterComponent = class RouterComponent extends LitElement {
+Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = require("@rxdi/core");
+const lit_html_1 = require("@rxdi/lit-html");
+const lit_html_2 = require("@rxdi/lit-html");
+const injection_tokens_1 = require("./injection.tokens");
+let RouterComponent = class RouterComponent extends lit_html_1.LitElement {
     constructor() {
         super(...arguments);
-        this.id = RouterRoutlet;
+        this.id = injection_tokens_1.RouterRoutlet;
         this.header = '';
         this.footer = '';
     }
@@ -26,10 +28,10 @@ let RouterComponent = class RouterComponent extends LitElement {
         }
     }
     render() {
-        return html `
+        return lit_html_1.html `
       <header></header>
       <slot></slot>
-      ${html `
+      ${lit_html_1.html `
         <main id="${this.id}"></main>
       `}
       <slot></slot>
@@ -40,13 +42,13 @@ let RouterComponent = class RouterComponent extends LitElement {
         this.routerOutlet.subscribe(mounted => {
             if (mounted) {
                 if (this.header) {
-                    render(html `
-              ${unsafeHTML(this.header)}
+                    lit_html_1.render(lit_html_1.html `
+              ${lit_html_2.unsafeHTML(this.header)}
             `, this.shadowRoot.querySelector('header'));
                 }
                 if (this.footer) {
-                    render(html `
-              ${unsafeHTML(this.footer)}
+                    lit_html_1.render(lit_html_1.html `
+              ${lit_html_2.unsafeHTML(this.footer)}
             `, this.shadowRoot.querySelector('footer'));
                 }
             }
@@ -54,31 +56,31 @@ let RouterComponent = class RouterComponent extends LitElement {
     }
 };
 __decorate([
-    Injector(RouterRoutlet),
+    core_1.Injector(injection_tokens_1.RouterRoutlet),
     __metadata("design:type", Object)
 ], RouterComponent.prototype, "routerOutlet", void 0);
 __decorate([
-    Injector(RouterInitialized),
+    core_1.Injector(injection_tokens_1.RouterInitialized),
     __metadata("design:type", Object)
 ], RouterComponent.prototype, "routerInitialized", void 0);
 __decorate([
-    property(),
+    lit_html_1.property(),
     __metadata("design:type", String)
 ], RouterComponent.prototype, "id", void 0);
 __decorate([
-    property(),
+    lit_html_1.property(),
     __metadata("design:type", String)
 ], RouterComponent.prototype, "header", void 0);
 __decorate([
-    property(),
+    lit_html_1.property(),
     __metadata("design:type", String)
 ], RouterComponent.prototype, "footer", void 0);
 __decorate([
-    property(),
+    lit_html_1.property(),
     __metadata("design:type", String)
 ], RouterComponent.prototype, "unsafeHtml", void 0);
 RouterComponent = __decorate([
-    customElement(RouterRoutlet),
-    Component()
+    lit_html_1.customElement(injection_tokens_1.RouterRoutlet),
+    core_1.Component()
 ], RouterComponent);
-export { RouterComponent };
+exports.RouterComponent = RouterComponent;

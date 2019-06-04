@@ -1,5 +1,7 @@
-import { Router as VaadinRouter } from '@vaadin/router';
-export class Outlet extends VaadinRouter {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const router_1 = require("@vaadin/router");
+class Outlet extends router_1.Router {
     constructor(element, options) {
         super(element, options);
         this.options = options;
@@ -39,7 +41,7 @@ export class Outlet extends VaadinRouter {
         }
         this.activePath = path;
         // window.dispatchEvent(new CustomEvent('vaadin-router-go', {detail: {pathname: '/to/path'}}));
-        return VaadinRouter.go(path);
+        return router_1.Router.go(path);
     }
     /**
      * Vaadin Router supports refferring to routes using string names. You can assign a name to a route using the name property of a route object, then generate URLs for that route using the router.urlForName(name, parameters) helper instance method.
@@ -64,7 +66,7 @@ export class Outlet extends VaadinRouter {
      * This method is invoked with the pre-configured values when creating a new Router instance. By default, both POPSTATE and CLICK are enabled. This setup is expected to cover most of the use cases.See the router-config.js for the default navigation triggers config. Based on it, you can create the own one and only import the triggers you need, instead of pulling in all the code, e.g. if you want to handle click differently.
      */
     setTriggers(triggers) {
-        VaadinRouter.setTriggers(triggers);
+        router_1.Router.setTriggers(triggers);
     }
     /**
      * Returns the current router outlet. The initial value is undefined.
@@ -114,3 +116,4 @@ export class Outlet extends VaadinRouter {
         return this.location.params;
     }
 }
+exports.Outlet = Outlet;
