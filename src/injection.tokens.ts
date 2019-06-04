@@ -1,19 +1,19 @@
-import { InjectionToken, Container } from '@rxdi/core';
+import { Container } from '@rxdi/core';
 import { BehaviorSubject } from 'rxjs';
 import { Outlet } from './outlet';
+import { RouterComponent } from './router.component';
 
-export const RouterRoutlet = new InjectionToken('router-outlet');
-export const Routes = new InjectionToken<Route<any>[]>('router-routes');
-export const RouterOptions = new InjectionToken<RouterOptions>(
-  'router-options'
-);
+export interface NavigationTrigger {}
 
-
-export interface RouterOptions {
-  baseUrl?: string;
-  log?: boolean;
+export function Router() {
+  return (target, propertyKey) => {
+    Object.defineProperty(target, propertyKey, {
+      get: () =>
+        (Container.get(RouterRoutlet) as BehaviorSubject<Outlet>).getValue()
+    });
+  };
 }
-
+export type Router = Outlet;
 export interface Route<C> {
   path: string;
   component: C;
@@ -22,12 +22,16 @@ export interface Route<C> {
   action?: () => Promise<any>;
 }
 
-export interface NavigationTrigger {}
+export const RouterRoutlet = 'router-outlet';
+export const RouterInitialized = 'router-initialized';
+export const Routes = 'router-routes';
+export const RouterOptions = 'router-options';
 
-export function Router() {
-  return (target, propertyKey) => {
-    Object.defineProperty(target, propertyKey, {
-      get: () => (Container.get('router-outlet') as BehaviorSubject<Outlet>).getValue()
-    });
-  };
+export interface RouterOptions {
+  baseUrl?: string;
+  log?: boolean;
 }
+export type Routes = Route<any>[];
+
+export type RouterRoutlet = BehaviorSubject<Outlet>;
+export type RouterInitialized = BehaviorSubject<RouterComponent>;

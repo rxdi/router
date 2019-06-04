@@ -1,15 +1,9 @@
-import { ModuleService } from '@rxdi/core';
-import { Route, RouterOptions } from './injection.tokens';
-import { Outlet } from './outlet';
-import { LitElement } from 'lit-element';
-import { BehaviorSubject } from 'rxjs';
+import { Routes, RouterOptions, RouterRoutlet, RouterInitialized } from './injection.tokens';
 export declare class RouterService {
-    private moduleService;
     private routes;
+    private routerOptions;
     private routerInitialized;
     private routerPlate;
-    private routerOptions;
     private subscription;
-    constructor(moduleService: ModuleService, routes: Route<any>[], routerInitialized: BehaviorSubject<LitElement>, routerPlate: BehaviorSubject<Outlet>, routerOptions: RouterOptions);
-    private getMetaDescriptors;
+    constructor(routes: Routes, routerOptions: RouterOptions, routerInitialized: RouterInitialized, routerPlate: RouterRoutlet);
 }

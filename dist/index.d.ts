@@ -1,6 +1,6 @@
 import { ModuleWithServices } from '@rxdi/core';
-import { Route, RouterOptions } from './injection.tokens';
 import { RouterComponent } from './router.component';
+import { RouterOptions, Route } from './injection.tokens';
 export declare class RouterModule {
     static forRoot<C>(routes: Route<C>[], options?: RouterOptions): ModuleWithServices;
 }

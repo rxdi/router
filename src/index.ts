@@ -1,8 +1,13 @@
 import { Module, ModuleWithServices, Container } from '@rxdi/core';
-import { Route, Routes, RouterOptions } from './injection.tokens';
 import { RouterService } from './router.service';
 import { BehaviorSubject } from 'rxjs';
 import { RouterComponent } from './router.component';
+import {
+  RouterOptions,
+  Route,
+  Routes,
+  RouterRoutlet
+} from './injection.tokens';
 
 @Module()
 export class RouterModule {
@@ -26,7 +31,7 @@ export class RouterModule {
           useFactory: () => new BehaviorSubject(null)
         },
         {
-          provide: 'router-outlet',
+          provide: RouterRoutlet,
           useFactory: () => new BehaviorSubject(null)
         },
         {
@@ -42,7 +47,6 @@ export class RouterModule {
 
 export * from './injection.tokens';
 export * from './outlet';
-
 
 declare global {
   interface HTMLElementTagNameMap {

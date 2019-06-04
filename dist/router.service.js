@@ -18,23 +18,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ModuleService, Service, Inject } from '@rxdi/core';
-import { Routes, RouterOptions } from './injection.tokens';
+import { Service, Inject } from '@rxdi/core';
 import { Outlet } from './outlet';
-import { BehaviorSubject } from 'rxjs';
+import { Routes, RouterOptions, RouterRoutlet, RouterInitialized } from './injection.tokens';
 let RouterService = class RouterService {
-    constructor(moduleService, routes, routerInitialized, routerPlate, routerOptions) {
-        this.moduleService = moduleService;
+    constructor(routes, routerOptions, routerInitialized, routerPlate) {
         this.routes = routes;
+        this.routerOptions = routerOptions;
         this.routerInitialized = routerInitialized;
         this.routerPlate = routerPlate;
-        this.routerOptions = routerOptions;
         this.subscription = this.routerInitialized
             .asObservable()
             .subscribe((routerOutlet) => __awaiter(this, void 0, void 0, function* () {
             if (routerOutlet) {
                 yield routerOutlet.requestUpdate();
-                const el = routerOutlet.shadowRoot.querySelector('#router-outlet');
+                const el = routerOutlet.shadowRoot.querySelector(`#${routerOutlet.id}`);
                 const router = new Outlet(el, this.routerOptions);
                 router.setRoutes(this.routes);
                 this.routerPlate.next(router);
@@ -42,50 +40,13 @@ let RouterService = class RouterService {
             }
         }));
     }
-    getMetaDescriptors() {
-        const descriptors = [];
-        Array.from(this.moduleService.watcherService._constructors.keys())
-            .filter(key => {
-            const clazz = this.moduleService.watcherService.getConstructor(key)['type']['metadata']['originalName'] === 'component';
-            console.log(clazz);
-            return clazz;
-        })
-            .map(key => {
-            console.log(key);
-            return this.moduleService.watcherService.getConstructor(key);
-        })
-            .forEach((map) => {
-            // const outlet = Container.get(Outlet);
-            // const routes = Container.get(Routes);
-            // Container.get(RouterPlate).setRoutes(routes);
-            debugger;
-            // Container.get(RouterModule.forRoot('router-outlet', [
-            //   {
-            //     path: '/',
-            //     component: 'test-component'
-            //   },
-            //   {
-            //     path: '(.*)',
-            //     component: 'not-found-component',
-            //     action: () => import('../not-found/not-found.component')
-            //   },
-            //   //   { path: '/users/:user', component: 'x-user-profile' },
-            // ]) as any);
-            // return Array.from(map.type._descriptors.keys())
-            //   .map((k) => map.type._descriptors.get(k))
-            //   .map(d => d.value)
-            //   .forEach(v => descriptors.push({ descriptor: v, self: map.value }));
-        });
-        return descriptors;
-    }
 };
 RouterService = __decorate([
     Service(),
-    __param(1, Inject(Routes)),
-    __param(2, Inject('router-initialized')),
-    __param(3, Inject('router-outlet')),
-    __param(4, Inject(RouterOptions)),
-    __metadata("design:paramtypes", [ModuleService, Array, BehaviorSubject,
-        BehaviorSubject, Object])
+    __param(0, Inject(Routes)),
+    __param(1, Inject(RouterOptions)),
+    __param(2, Inject(RouterInitialized)),
+    __param(3, Inject(RouterRoutlet)),
+    __metadata("design:paramtypes", [Array, Object, Object, Object])
 ], RouterService);
 export { RouterService };

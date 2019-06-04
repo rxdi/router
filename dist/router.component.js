@@ -7,24 +7,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Container } from '@rxdi/core';
-import { LitElement, customElement, html, property, TemplateResult } from 'lit-element';
+import { Component, Injector } from '@rxdi/core';
+import { LitElement, customElement, html, property } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { render } from 'lit-html';
+import { RouterRoutlet, RouterInitialized } from './injection.tokens';
 let RouterComponent = class RouterComponent extends LitElement {
     constructor() {
         super(...arguments);
-        this.routerOutlet = Container.get('router-outlet');
-        this.routerInitialized = Container.get('router-initialized');
+        this.id = RouterRoutlet;
         this.header = '';
         this.footer = '';
-        this.outlet = html `
-    <main id="router-outlet"></main>
-  `;
     }
     connectedCallback() {
         super.connectedCallback();
         this.routerInitialized.next(this);
+        if (this.unsafeHtml) {
+            this.unsafeHtmlInsert();
+        }
+    }
+    render() {
+        return html `
+      <header></header>
+      <slot></slot>
+      ${html `
+        <main id="${this.id}"></main>
+      `}
+      <slot></slot>
+      <footer></footer>
+    `;
+    }
+    unsafeHtmlInsert() {
         this.routerOutlet.subscribe(mounted => {
             if (mounted) {
                 if (this.header) {
@@ -40,16 +53,19 @@ let RouterComponent = class RouterComponent extends LitElement {
             }
         });
     }
-    render() {
-        return html `
-      <header></header>
-      <slot></slot>
-      ${this.outlet}
-      <slot></slot>
-      <footer></footer>
-    `;
-    }
 };
+__decorate([
+    Injector(RouterRoutlet),
+    __metadata("design:type", Object)
+], RouterComponent.prototype, "routerOutlet", void 0);
+__decorate([
+    Injector(RouterInitialized),
+    __metadata("design:type", Object)
+], RouterComponent.prototype, "routerInitialized", void 0);
+__decorate([
+    property(),
+    __metadata("design:type", String)
+], RouterComponent.prototype, "id", void 0);
 __decorate([
     property(),
     __metadata("design:type", String)
@@ -60,10 +76,10 @@ __decorate([
 ], RouterComponent.prototype, "footer", void 0);
 __decorate([
     property(),
-    __metadata("design:type", TemplateResult)
-], RouterComponent.prototype, "outlet", void 0);
+    __metadata("design:type", String)
+], RouterComponent.prototype, "unsafeHtml", void 0);
 RouterComponent = __decorate([
-    customElement('router-outlet'),
+    customElement(RouterRoutlet),
     Component()
 ], RouterComponent);
 export { RouterComponent };

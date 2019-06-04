@@ -1,18 +1,11 @@
 import { Router as VaadinRouter } from '@vaadin/router';
-import {
-  Route,
-  RouterOptions,
-  NavigationTrigger
-} from './injection.tokens';
+import { NavigationTrigger } from './injection.tokens';
+import { RouterOptions, Route } from './injection.tokens';
 
 export class Outlet<C = {}> extends VaadinRouter {
-
   activePath: string = '/';
 
-  constructor(
-    element: Element,
-    private options: RouterOptions
-  ) {
+  constructor(element: Element, private options: RouterOptions) {
     super(element, options);
     window.addEventListener('vaadin-router-location-changed', event => {
       if (this.options.log) {

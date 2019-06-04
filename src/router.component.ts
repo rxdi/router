@@ -1,36 +1,41 @@
-import { Component, Container } from '@rxdi/core';
-import {
-  LitElement,
-  customElement,
-  html,
-  property,
-  TemplateResult
-} from 'lit-element';
+import { Component, Injector } from '@rxdi/core';
+import { LitElement, customElement, html, property } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { BehaviorSubject } from 'rxjs';
-import { Outlet } from './outlet';
-
 import { render } from 'lit-html';
+import { RouterRoutlet, RouterInitialized } from './injection.tokens';
 
-@customElement('router-outlet')
+@customElement(RouterRoutlet)
 @Component()
 export class RouterComponent extends LitElement {
-  private routerOutlet: BehaviorSubject<Outlet> = Container.get(
-    'router-outlet'
-  );
-  private routerInitialized: BehaviorSubject<LitElement> = Container.get(
-    'router-initialized'
-  );
+  @Injector(RouterRoutlet) private routerOutlet: RouterRoutlet;
+  @Injector(RouterInitialized) private routerInitialized: RouterInitialized;
 
+  @property() id: string = RouterRoutlet;
   @property() header: string = '';
   @property() footer: string = '';
+  @property() unsafeHtml: string;
 
-  @property() outlet: TemplateResult = html`
-    <main id="router-outlet"></main>
-  `;
   connectedCallback() {
     super.connectedCallback();
     this.routerInitialized.next(this);
+    if (this.unsafeHtml) {
+      this.unsafeHtmlInsert();
+    }
+  }
+
+  render() {
+    return html`
+      <header></header>
+      <slot></slot>
+      ${html`
+        <main id="${this.id}"></main>
+      `}
+      <slot></slot>
+      <footer></footer>
+    `;
+  }
+
+  private unsafeHtmlInsert() {
     this.routerOutlet.subscribe(mounted => {
       if (mounted) {
         if (this.header) {
@@ -51,15 +56,5 @@ export class RouterComponent extends LitElement {
         }
       }
     });
-  }
-
-  render() {
-    return html`
-      <header></header>
-      <slot></slot>
-      ${this.outlet}
-      <slot></slot>
-      <footer></footer>
-    `;
   }
 }

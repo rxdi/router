@@ -1,10 +1,12 @@
-import { LitElement, TemplateResult } from 'lit-element';
+import { LitElement } from 'lit-element';
 export declare class RouterComponent extends LitElement {
     private routerOutlet;
     private routerInitialized;
+    id: string;
     header: string;
     footer: string;
-    outlet: TemplateResult;
+    unsafeHtml: string;
     connectedCallback(): void;
-    render(): TemplateResult;
+    render(): import("lit-element").TemplateResult;
+    private unsafeHtmlInsert;
 }
