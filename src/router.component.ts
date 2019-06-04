@@ -1,7 +1,6 @@
 import { Component, Injector } from '@rxdi/core';
-import { LitElement, customElement, html, property } from 'lit-element';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { render } from 'lit-html';
+import { render, LitElement, customElement, html, property } from '@rxdi/lit-html';
+import { unsafeHTML } from '@rxdi/lit-html';
 import { RouterRoutlet, RouterInitialized } from './injection.tokens';
 
 @customElement(RouterRoutlet)

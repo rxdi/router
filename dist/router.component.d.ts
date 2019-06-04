@@ -1,4 +1,4 @@
-import { LitElement } from 'lit-element';
+import { LitElement } from '@rxdi/lit-html';
 export declare class RouterComponent extends LitElement {
     private routerOutlet;
     private routerInitialized;
@@ -7,6 +7,6 @@ export declare class RouterComponent extends LitElement {
     footer: string;
     unsafeHtml: string;
     connectedCallback(): void;
-    render(): import("lit-element").TemplateResult;
+    render(): import("@rxdi/lit-html").TemplateResult;
     private unsafeHtmlInsert;
 }
