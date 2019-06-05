@@ -12,19 +12,19 @@ npm i @rxdi/router
 
 ```typescript
 import { Module } from '@rxdi/core';
-import { GraphqlModule } from '@rxdi/graphql-client';
 import { RouterModule } from '@rxdi/router';
 import { DOCUMENTS } from './@introspection/documents';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { Components } from './shared/components';
-import { State } from './app.state';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 
 @Module({
   components: [
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+    NavbarComponent
   ],
   imports: [
     RouterModule.forRoot<Components>([
