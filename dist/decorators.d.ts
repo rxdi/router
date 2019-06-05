@@ -15,13 +15,13 @@ import { customElement, LitElement } from '@rxdi/lit-html';
 @customElement('x-user-profile')
 export class UserProfile extends LitElement {
 
-@RouteParams()
-params: { name: string }
+  @RouteParams()
+  params: { name: string }
 
-render() {
-  return html`${this.params.name}`;
-}
+  render() {
+    return html`${this.params.name}`;
+  }
 }
 ```
- */
+   */
 export declare function RouteParams(): (target: Object, propertyKey: string) => void;
