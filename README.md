@@ -77,23 +77,23 @@ export class AppComponent extends HTMLElement {
 
 ```
 
-#### Another way of importing router you should define inside `index.html`
+
+#### Adding `header` and `footer` inside `router-outlet` is simple using `<slot></slot>` element
 
 ```html
-<body>
-  <header>
-    <h1>Hello world</h1>
-  </header>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/not-found">Not found component</a>
-  </nav>
-  <main id="outlet">
-    <!-- Here Vaadin.Router inserts the current page content -->
-  </main>
-</body>
+<router-outlet>
+  <navbar-component slot="header"></navbar-component>
+  <footer-component slot="footer"></footer-component>
+</router-outlet>
 ```
 
+Header and footer can be added also outside of router `shadowDOM`
+
+```html
+<navbar-component></navbar-component>
+<router-outlet></router-outlet>
+<footer-component></footer-component>
+```
 
 
 #### Getting Route parameters using Typescript Decorator

@@ -16,48 +16,21 @@ let RouterComponent = class RouterComponent extends lit_html_1.LitElement {
     constructor() {
         super(...arguments);
         this.id = injection_tokens_1.RouterRoutlet;
-        this.header = '';
-        this.footer = '';
     }
     connectedCallback() {
         super.connectedCallback();
         this.routerInitialized.next(this);
-        if (this.unsafeHtml) {
-            this.unsafeHtmlInsert();
-        }
     }
     render() {
         return lit_html_1.html `
-      <header></header>
-      <slot></slot>
+      <slot name="header"></slot>
       ${lit_html_1.html `
         <main id="${this.id}"></main>
       `}
-      <slot></slot>
-      <footer></footer>
+      <slot name="footer"></slot>
     `;
     }
-    unsafeHtmlInsert() {
-        this.routerOutlet.subscribe(mounted => {
-            if (mounted) {
-                if (this.header) {
-                    lit_html_1.render(lit_html_1.html `
-              ${lit_html_1.unsafeHTML(this.header)}
-            `, this.shadowRoot.querySelector('header'));
-                }
-                if (this.footer) {
-                    lit_html_1.render(lit_html_1.html `
-              ${lit_html_1.unsafeHTML(this.footer)}
-            `, this.shadowRoot.querySelector('footer'));
-                }
-            }
-        });
-    }
 };
-__decorate([
-    core_1.Injector(injection_tokens_1.RouterRoutlet),
-    __metadata("design:type", Object)
-], RouterComponent.prototype, "routerOutlet", void 0);
 __decorate([
     core_1.Injector(injection_tokens_1.RouterInitialized),
     __metadata("design:type", Object)
@@ -66,18 +39,6 @@ __decorate([
     lit_html_1.property(),
     __metadata("design:type", String)
 ], RouterComponent.prototype, "id", void 0);
-__decorate([
-    lit_html_1.property(),
-    __metadata("design:type", String)
-], RouterComponent.prototype, "header", void 0);
-__decorate([
-    lit_html_1.property(),
-    __metadata("design:type", String)
-], RouterComponent.prototype, "footer", void 0);
-__decorate([
-    lit_html_1.property(),
-    __metadata("design:type", String)
-], RouterComponent.prototype, "unsafeHtml", void 0);
 RouterComponent = __decorate([
     lit_html_1.customElement(injection_tokens_1.RouterRoutlet)
 ], RouterComponent);
