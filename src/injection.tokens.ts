@@ -23,7 +23,7 @@ export interface Route<C> {
   animate?: boolean;
   children?: Route<C>[] | LazyChildren<C>;
   redirect?: string;
-  freeze: boolean;
+  freeze?: boolean;
   action?: () => Promise<any>;
 }
 
@@ -35,7 +35,7 @@ export const RouterOptions = 'router-options';
 export interface RouterOptions {
   baseUrl?: string;
   log?: boolean;
-  freeze: boolean;
+  freeze?: boolean;
 }
 export type Routes = Route<any>[];
 

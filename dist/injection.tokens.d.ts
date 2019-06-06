@@ -12,7 +12,7 @@ export interface Route<C> {
     animate?: boolean;
     children?: Route<C>[] | LazyChildren<C>;
     redirect?: string;
-    freeze: boolean;
+    freeze?: boolean;
     action?: () => Promise<any>;
 }
 export declare const RouterRoutlet = "router-outlet";
@@ -22,7 +22,7 @@ export declare const RouterOptions = "router-options";
 export interface RouterOptions {
     baseUrl?: string;
     log?: boolean;
-    freeze: boolean;
+    freeze?: boolean;
 }
 export declare type Routes = Route<any>[];
 export declare type RouterRoutlet = BehaviorSubject<Outlet>;
