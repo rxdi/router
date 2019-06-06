@@ -4,11 +4,13 @@ import { RouterComponent } from './router.component';
 export interface NavigationTrigger {
 }
 export declare function Router(): (target: Object, propertyKey: string) => void;
+export declare type LazyChildren = () => Promise<any>;
 export declare type Router = Outlet;
 export interface Route<C> {
     path: string;
     component: C;
-    children?: Route<C>[];
+    animate?: boolean;
+    children?: Route<C>[] | LazyChildren;
     redirect?: string;
     action?: () => Promise<any>;
 }

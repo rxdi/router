@@ -14,12 +14,14 @@ export function Router() {
   };
 }
 
+export type LazyChildren = () => Promise<any>;
 export type Router = Outlet;
 
 export interface Route<C> {
   path: string;
   component: C;
-  children?: Route<C>[];
+  animate?: boolean;
+  children?: Route<C>[] | LazyChildren;
   redirect?: string;
   action?: () => Promise<any>;
 }
