@@ -4,7 +4,7 @@ import { RouterOptions, Route } from './injection.tokens';
 
 export class Outlet<C = {}> extends VaadinRouter {
   activePath: string = '/';
-
+  private freeze: boolean;
   constructor(element: Element, private options: RouterOptions) {
     super(element, options);
     window.addEventListener('vaadin-router-location-changed', event => {
@@ -13,6 +13,14 @@ export class Outlet<C = {}> extends VaadinRouter {
       }
       this.activePath = event['detail'].location.pathname;
     });
+  }
+
+  freezeRouter() {
+    this.freeze = true;
+  }
+
+  unfreezeRouter() {
+    this.freeze = false;
   }
 
   /**
@@ -39,10 +47,13 @@ export class Outlet<C = {}> extends VaadinRouter {
    * @returns void
    */
   go(path: string): boolean {
-    if (this.activePath === path) {
+    if (this.activePath === path || this.freeze) {
       return false;
     }
     this.activePath = path;
+    if (this.options.freeze) {
+      this.freezeRouter();
+    }
     // window.dispatchEvent(new CustomEvent('vaadin-router-go', {detail: {pathname: '/to/path'}}));
     return VaadinRouter.go(path);
   }

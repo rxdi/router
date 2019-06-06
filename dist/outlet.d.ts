@@ -4,7 +4,10 @@ import { RouterOptions, Route } from './injection.tokens';
 export declare class Outlet<C = {}> extends VaadinRouter {
     private options;
     activePath: string;
+    private freeze;
     constructor(element: Element, options: RouterOptions);
+    freezeRouter(): void;
+    unfreezeRouter(): void;
     /**
      * Takes current routes and set it
      * @param routes: Route<C>[]

@@ -14,15 +14,16 @@ export function Router() {
   };
 }
 
-export type LazyChildren = () => Promise<any>;
+export type LazyChildren<C> = () => Promise<Route<C>[]>;
 export type Router = Outlet;
 
 export interface Route<C> {
   path: string;
   component: C;
   animate?: boolean;
-  children?: Route<C>[] | LazyChildren;
+  children?: Route<C>[] | LazyChildren<C>;
   redirect?: string;
+  freeze: boolean;
   action?: () => Promise<any>;
 }
 
@@ -34,6 +35,7 @@ export const RouterOptions = 'router-options';
 export interface RouterOptions {
   baseUrl?: string;
   log?: boolean;
+  freeze: boolean;
 }
 export type Routes = Route<any>[];
 

@@ -13,6 +13,12 @@ class Outlet extends router_1.Router {
             this.activePath = event['detail'].location.pathname;
         });
     }
+    freezeRouter() {
+        this.freeze = true;
+    }
+    unfreezeRouter() {
+        this.freeze = false;
+    }
     /**
      * Takes current routes and set it
      * @param routes: Route<C>[]
@@ -36,10 +42,13 @@ class Outlet extends router_1.Router {
      * @returns void
      */
     go(path) {
-        if (this.activePath === path) {
+        if (this.activePath === path || this.freeze) {
             return false;
         }
         this.activePath = path;
+        if (this.options.freeze) {
+            this.freezeRouter();
+        }
         // window.dispatchEvent(new CustomEvent('vaadin-router-go', {detail: {pathname: '/to/path'}}));
         return router_1.Router.go(path);
     }
