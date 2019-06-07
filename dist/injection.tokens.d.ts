@@ -4,7 +4,7 @@ import { RouterComponent } from './router.component';
 export interface NavigationTrigger {
 }
 export declare function Router(): (target: Object, propertyKey: string) => void;
-export declare type LazyChildren = () => Promise<any[]>;
+export declare type LazyChildren = () => Promise<any>;
 export declare type Router = Outlet;
 export interface Route<C = any> {
     path: string;
