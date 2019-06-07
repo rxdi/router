@@ -1,4 +1,4 @@
-import { Module, ModuleWithServices, Container } from '@rxdi/core';
+import { Module, ModuleWithServices } from '@rxdi/core';
 import { RouterService } from './router.service';
 import { BehaviorSubject } from 'rxjs';
 import { RouterComponent } from './router.component';
@@ -9,6 +9,7 @@ import {
   RouterRoutlet,
   RouterInitialized
 } from './injection.tokens';
+import { ChildRoutesObservable, loadLazyRoutes } from './helpers';
 
 @Module()
 export class RouterModule {
@@ -25,7 +26,7 @@ export class RouterModule {
         },
         {
           provide: Routes,
-          useValue: routes
+          useValue: loadLazyRoutes(routes)
         },
         {
           provide: RouterInitialized,
@@ -39,16 +40,22 @@ export class RouterModule {
           provide: 'initRouter',
           deps: [RouterService],
           useFactory: (r: RouterService) => r
-        }
+        },
       ],
       components: [RouterComponent]
     };
+  }
+
+  public static forChild(routes: Route<any>[]) {
+      ChildRoutesObservable.next(loadLazyRoutes(routes));
+      return RouterModule;
   }
 }
 
 export * from './injection.tokens';
 export * from './outlet';
 export * from './decorators';
+export * from './helpers';
 
 declare global {
   interface HTMLElementTagNameMap {

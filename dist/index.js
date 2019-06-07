@@ -15,6 +15,7 @@ const router_service_1 = require("./router.service");
 const rxjs_1 = require("rxjs");
 const router_component_1 = require("./router.component");
 const injection_tokens_1 = require("./injection.tokens");
+const helpers_1 = require("./helpers");
 let RouterModule = RouterModule_1 = class RouterModule {
     static forRoot(routes, options) {
         return {
@@ -26,7 +27,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
                 },
                 {
                     provide: injection_tokens_1.Routes,
-                    useValue: routes
+                    useValue: helpers_1.loadLazyRoutes(routes)
                 },
                 {
                     provide: injection_tokens_1.RouterInitialized,
@@ -40,10 +41,14 @@ let RouterModule = RouterModule_1 = class RouterModule {
                     provide: 'initRouter',
                     deps: [router_service_1.RouterService],
                     useFactory: (r) => r
-                }
+                },
             ],
             components: [router_component_1.RouterComponent]
         };
+    }
+    static forChild(routes) {
+        helpers_1.ChildRoutesObservable.next(helpers_1.loadLazyRoutes(routes));
+        return RouterModule_1;
     }
 };
 RouterModule = RouterModule_1 = __decorate([
@@ -53,3 +58,4 @@ exports.RouterModule = RouterModule;
 __export(require("./injection.tokens"));
 __export(require("./outlet"));
 __export(require("./decorators"));
+__export(require("./helpers"));
