@@ -8,7 +8,7 @@ export declare type LazyChildren = () => Promise<any>;
 export declare type Router = Outlet;
 export interface Route<C = any> {
     path: string;
-    component?: C;
+    component?: C | Function;
     animate?: boolean;
     children?: Route<C>[] | LazyChildren;
     redirect?: string;

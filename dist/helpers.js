@@ -12,6 +12,7 @@ const rxjs_1 = require("rxjs");
 exports.ChildRoutesObservable = new rxjs_1.BehaviorSubject(null);
 function loadLazyRoutes(routes) {
     const r = [...routes].map(route => {
+        debugger;
         if (route.children && typeof route.children === 'function') {
             const lazyModule = route.children;
             route.children = function () {
@@ -20,6 +21,9 @@ function loadLazyRoutes(routes) {
                     return exports.ChildRoutesObservable.getValue();
                 });
             };
+        }
+        if (typeof route.component === 'function') {
+            route.component = route.component.is();
         }
         return route;
     });
