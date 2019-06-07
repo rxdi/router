@@ -1,6 +1,6 @@
 export interface Route<C> {
     path: string;
-    component: C;
+    component?: C;
     action?: () => Promise<any>;
 }
 

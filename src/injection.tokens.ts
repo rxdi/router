@@ -19,7 +19,7 @@ export type Router = Outlet;
 
 export interface Route<C = any> {
   path: string;
-  component: C;
+  component?: C;
   animate?: boolean;
   children?: Route<C>[] | LazyChildren;
   redirect?: string;
