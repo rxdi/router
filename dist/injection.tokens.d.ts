@@ -32,13 +32,13 @@ export interface RouteContext extends Route {
     };
 }
 export interface CanActivateResolver {
-    canActivate(context: CanActivateContext, commands: CanActivateCommands): CanActivateRedirect | boolean | Promise<boolean> | Observable<boolean> | void;
+    canActivate(context: CanActivateContext, commands: CanActivateCommands): CanActivateRedirectResult | boolean | Promise<boolean> | Observable<boolean> | void;
 }
-export declare type CanActivateRedirect = (path: string) => {
+export interface CanActivateRedirectResult {
     from: string;
     params: any;
     pathname: string;
-};
+}
 export interface CanActivateContext {
     chain: {
         route: RouteContext;
@@ -50,7 +50,7 @@ export interface CanActivateContext {
 }
 export interface CanActivateCommands {
     component: () => HTMLUnknownElement;
-    redirect: CanActivateRedirect;
+    redirect: (path: string) => CanActivateRedirectResult;
 }
 export declare const RouterRoutlet = "router-outlet";
 export declare const RouterInitialized = "router-initialized";

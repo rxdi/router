@@ -50,16 +50,17 @@ export interface CanActivateResolver {
     context: CanActivateContext,
     commands: CanActivateCommands
   ):
-    | CanActivateRedirect
+    | CanActivateRedirectResult
     | boolean
     | Promise<boolean>
     | Observable<boolean>
     | void;
 }
-
-export type CanActivateRedirect = (
-  path: string
-) => { from: string; params: any; pathname: string };
+export interface CanActivateRedirectResult {
+  from: string;
+  params: any;
+  pathname: string;
+};
 
 export interface CanActivateContext {
   chain: {
@@ -73,7 +74,9 @@ export interface CanActivateContext {
 
 export interface CanActivateCommands {
   component: () => HTMLUnknownElement;
-  redirect: CanActivateRedirect;
+  redirect: (
+    path: string
+  ) => CanActivateRedirectResult;
 }
 
 export const RouterRoutlet = 'router-outlet';

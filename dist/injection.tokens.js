@@ -9,6 +9,7 @@ function Router() {
     };
 }
 exports.Router = Router;
+;
 exports.RouterRoutlet = 'router-outlet';
 exports.RouterInitialized = 'router-initialized';
 exports.Routes = 'router-routes';
