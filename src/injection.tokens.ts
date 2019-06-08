@@ -93,3 +93,20 @@ export type Routes = Route<any>[];
 
 export type RouterRoutlet = BehaviorSubject<Outlet>;
 export type RouterInitialized = BehaviorSubject<RouterComponent>;
+
+
+export interface OnBeforeEnter {
+  onBeforeEnter(): Promise<any> | void;
+}
+
+export interface OnAfterEnter {
+  onAfterEnter(): void;
+}
+
+export interface OnBeforeLeave {
+  onBeforeLeave(): void;
+}
+
+export interface OnAfterLeave {
+  onAfterLeave(): void;
+}

@@ -180,3 +180,54 @@ RouterModule.forRoot<Components>([
 ```
 Njoy!
 
+
+#### Hooks
+
+```typescript
+import { html, customElement, async, LitElement } from '@rxdi/lit-html';
+import { timer } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { OnBeforeEnter, OnAfterEnter, OnAfterLeave, OnBeforeLeave } from '@rxdi/router';
+
+@customElement('about-component', {
+  template(this: AboutComponent) {
+    return html`
+    <header>
+      <h1>About</h1>
+    </header>
+    <p>
+    <img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Italian Trulli">
+    </p>
+    `;
+  }
+})
+export class AboutComponent extends LitElement implements OnBeforeEnter, OnAfterEnter, OnAfterLeave, OnBeforeLeave {
+  onBeforeEnter() {
+    this;
+    debugger;
+  }
+  onAfterEnter() {
+    this;
+    debugger;
+  }
+  onBeforeLeave() {
+    this;
+    debugger;
+  }
+  onAfterLeave() {
+    this;
+    debugger;
+  }
+  OnInit() {
+    debugger;
+    console.log('About component init');
+  }
+
+  OnDestroy() {
+    debugger;
+    console.log('About component destroyed');
+  }
+
+}
+
+```
