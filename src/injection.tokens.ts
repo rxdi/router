@@ -14,7 +14,7 @@ export function Router() {
   };
 }
 
-export type LazyChildren = () => Promise<any>;
+export type LazyChildren = (context?, commands?) => Promise<any>;
 export type Router = Outlet;
 
 export interface Route<C = any> {
@@ -24,7 +24,9 @@ export interface Route<C = any> {
   children?: Route<C>[] | LazyChildren;
   redirect?: string;
   freeze?: boolean;
-  action?: () => Promise<any>;
+  action?: LazyChildren;
+  canActivate?: Function;
+
 }
 
 export const RouterRoutlet = 'router-outlet';

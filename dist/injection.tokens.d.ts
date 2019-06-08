@@ -4,7 +4,7 @@ import { RouterComponent } from './router.component';
 export interface NavigationTrigger {
 }
 export declare function Router(): (target: Object, propertyKey: string) => void;
-export declare type LazyChildren = () => Promise<any>;
+export declare type LazyChildren = (context?: any, commands?: any) => Promise<any>;
 export declare type Router = Outlet;
 export interface Route<C = any> {
     path: string;
@@ -13,7 +13,8 @@ export interface Route<C = any> {
     children?: Route<C>[] | LazyChildren;
     redirect?: string;
     freeze?: boolean;
-    action?: () => Promise<any>;
+    action?: LazyChildren;
+    canActivate?: Function;
 }
 export declare const RouterRoutlet = "router-outlet";
 export declare const RouterInitialized = "router-initialized";

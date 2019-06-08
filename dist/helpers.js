@@ -9,25 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
+const core_1 = require("@rxdi/core");
 exports.ChildRoutesObservable = new rxjs_1.BehaviorSubject(null);
-function loadLazyRoutes(routes) {
-    const r = [...routes].map(route => {
-        debugger;
-        if (route.children && typeof route.children === 'function') {
-            const lazyModule = route.children;
-            route.children = function () {
-                return __awaiter(this, void 0, void 0, function* () {
-                    yield lazyModule();
-                    return exports.ChildRoutesObservable.getValue();
-                });
-            };
-        }
-        if (typeof route.component === 'function') {
-            route.component = route.component.is();
-        }
-        return route;
-    });
+function assignChildren(route) {
+    if (route.children && typeof route.children === 'function') {
+        const lazyModule = route.children;
+        route.children = function (context, commands) {
+            return __awaiter(this, void 0, void 0, function* () {
+                yield lazyModule(context, commands);
+                return exports.ChildRoutesObservable.getValue();
+            });
+        };
+    }
+    return route;
+}
+function assignAction(route) {
+    if (route.canActivate && typeof route.children === 'function' && !route.action) {
+        const guard = core_1.Container.get(route.canActivate);
+        route.action = guard['canActivate'].bind(guard);
+    }
+    return route;
+}
+function assignStaticIs(route) {
+    if (typeof route.component === 'function') {
+        route.component = route.component.is();
+    }
+    return route;
+}
+function loadRoutes(routes) {
+    const r = [...routes].map(route => assignStaticIs(assignAction(assignChildren(route))));
     exports.ChildRoutesObservable.next(null);
     return r;
 }
-exports.loadLazyRoutes = loadLazyRoutes;
+exports.loadRoutes = loadRoutes;

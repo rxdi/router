@@ -9,7 +9,7 @@ import {
   RouterRoutlet,
   RouterInitialized
 } from './injection.tokens';
-import { ChildRoutesObservable, loadLazyRoutes } from './helpers';
+import { ChildRoutesObservable, loadRoutes } from './helpers';
 
 @Module()
 export class RouterModule {
@@ -26,7 +26,7 @@ export class RouterModule {
         },
         {
           provide: Routes,
-          useValue: loadLazyRoutes(routes)
+          useValue: loadRoutes(routes)
         },
         {
           provide: RouterInitialized,
@@ -47,7 +47,7 @@ export class RouterModule {
   }
 
   public static forChild(routes: Route<any>[]) {
-      ChildRoutesObservable.next(loadLazyRoutes(routes));
+      ChildRoutesObservable.next(loadRoutes(routes));
       return RouterModule;
   }
 }
