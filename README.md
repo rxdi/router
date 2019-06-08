@@ -121,6 +121,8 @@ export class UserProfile extends LitElement {
 
 #### Router Guards
 
+Defining Guard
+
  ```typescript
 import { Injectable } from '@rxdi/core';
 import { Observable } from 'rxjs';
@@ -130,7 +132,8 @@ import {
   CanActivateResolver,
   CanActivateRedirect
 } from '@rxdi/router';
- @Injectable()
+
+@Injectable()
 export class LoggedInGuard implements CanActivateResolver {
   OnInit() {}
    canActivate(
@@ -153,10 +156,27 @@ export class LoggedInGuard implements CanActivateResolver {
 }
 ```
 
- Guards can be defined inside `RouterModule`
+#### Using guard
+
+
+#### Importing module
+
+Guards can be defined inside `RouterModule`
 When particular route resolver is triggered you will stop in this `Guard` before component is resolved
 
- Njoy!	Njoy!
-
+```typescript
+RouterModule.forRoot<Components>([
+  {
+    path: '/',
+    component: 'home-component'
+  },
+  {
+    path: '/about',
+    component: 'about-component',
+    children: () => import('./about/about.module'),
+    canActivate: LoggedInGuard
+  },
+])
+```
 Njoy!
 
