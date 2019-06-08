@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
+const injection_tokens_1 = require("./injection.tokens");
 const core_1 = require("@rxdi/core");
 exports.ChildRoutesObservable = new rxjs_1.BehaviorSubject(null);
 function assignChildren(route) {
@@ -23,6 +24,24 @@ function assignChildren(route) {
     }
     return route;
 }
+function activateGuard(result, commands, route) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (rxjs_1.isObservable(result)) {
+            result = result.toPromise();
+        }
+        if (yield result) {
+            return result;
+        }
+        else {
+            const routerOptions = core_1.Container.get(injection_tokens_1.RouterOptions);
+            const redirect = commands.redirect(route.parent.path || '/');
+            if (routerOptions.log) {
+                console.error(`Guard ${route.canActivate['originalName']} activated!`);
+            }
+            return redirect;
+        }
+    });
+}
 function assignAction(route) {
     if (route.canActivate) {
         const guard = core_1.Container.get(route.canActivate);
@@ -31,7 +50,8 @@ function assignAction(route) {
             route.action = function (context, commands) {
                 return __awaiter(this, void 0, void 0, function* () {
                     yield originalAction(context, commands);
-                    return guard.canActivate.bind(guard)(context, commands);
+                    const result = guard.canActivate.bind(guard)(context, commands);
+                    return activateGuard(result, commands, route);
                 });
             };
         }

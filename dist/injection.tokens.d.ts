@@ -4,7 +4,7 @@ import { RouterComponent } from './router.component';
 export interface NavigationTrigger {
 }
 export declare function Router(): (target: Object, propertyKey: string) => void;
-export declare type LazyChildren = (context?: any, commands?: any) => Promise<any>;
+export declare type LazyChildren = (context?: CanActivateContext, commands?: CanActivateCommands) => Promise<any>;
 export declare type Router = Outlet;
 export interface Route<C = any> {
     path: string;
@@ -16,6 +16,21 @@ export interface Route<C = any> {
     action?: LazyChildren;
     canActivate?: Function;
 }
+export interface CanActivateContextKeys {
+    delimiter: string | '/';
+    name: number;
+    optional: boolean;
+    partial: boolean;
+    pattern: string | '.*';
+    prefix: string | '';
+    repeat: boolean;
+}
+export interface RouteContext extends Route {
+    parent: {
+        parent: any;
+        path: string;
+    };
+}
 export interface CanActivateResolver {
     canActivate(context: CanActivateContext, commands: CanActivateCommands): CanActivateRedirect | boolean | Promise<boolean> | Observable<boolean> | void;
 }
@@ -26,7 +41,7 @@ export declare type CanActivateRedirect = (path: string) => {
 };
 export interface CanActivateContext {
     chain: {
-        route: Route;
+        route: RouteContext;
         path: string;
         element: HTMLUnknownElement;
     }[];

@@ -1,5 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
-import { Route, CanActivateResolver } from './injection.tokens';
+import { BehaviorSubject, isObservable } from 'rxjs';
+import { Route, CanActivateResolver, CanActivateCommands, CanActivateContext, RouterOptions, RouteContext } from './injection.tokens';
 import { Container } from '@rxdi/core';
 
 export const ChildRoutesObservable = new BehaviorSubject(null);
@@ -15,14 +15,31 @@ function assignChildren(route: Route) {
   return route;
 }
 
+async function activateGuard(result, commands, route: RouteContext) {
+  if (isObservable(result)) {
+    result = result.toPromise();
+  }
+  if (await result) {
+    return result;
+  } else {
+    const routerOptions = Container.get(RouterOptions) as any;
+    const redirect = commands.redirect(route.parent.path || '/');
+    if (routerOptions.log) {
+      console.error(`Guard ${route.canActivate['originalName']} activated!`);
+    }
+    return redirect;
+  }
+}
+
 function assignAction(route: Route) {
   if (route.canActivate) {
     const guard: CanActivateResolver = Container.get(route.canActivate);
     if (route.action) {
       const originalAction = route.action;
-      route.action = async function(context, commands) {
+      route.action = async function(context: CanActivateContext, commands: CanActivateCommands) {
         await originalAction(context, commands);
-        return guard.canActivate.bind(guard)(context, commands);
+        const result = guard.canActivate.bind(guard)(context, commands);
+        return activateGuard(result, commands, route as any);
       }
     } else {
       route.action = guard.canActivate.bind(guard);

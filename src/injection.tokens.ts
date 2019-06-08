@@ -14,7 +14,7 @@ export function Router() {
   };
 }
 
-export type LazyChildren = (context?, commands?) => Promise<any>;
+export type LazyChildren = (context?: CanActivateContext, commands?: CanActivateCommands) => Promise<any>;
 export type Router = Outlet;
 
 export interface Route<C = any> {
@@ -28,20 +28,42 @@ export interface Route<C = any> {
   canActivate?: Function;
 }
 
+export interface CanActivateContextKeys {
+  delimiter: string | '/';
+  name: number;
+  optional: boolean;
+  partial: boolean;
+  pattern: string | '.*';
+  prefix: string | '';
+  repeat: boolean;
+}
 
+export interface RouteContext extends Route {
+  parent: {
+    parent: any;
+    path: string;
+  }
+}
 
 export interface CanActivateResolver {
   canActivate(
     context: CanActivateContext,
     commands: CanActivateCommands
-  ): CanActivateRedirect | boolean | Promise<boolean> | Observable<boolean> | void;
+  ):
+    | CanActivateRedirect
+    | boolean
+    | Promise<boolean>
+    | Observable<boolean>
+    | void;
 }
 
-export type CanActivateRedirect = (path: string) => { from: string; params: any; pathname: string }
+export type CanActivateRedirect = (
+  path: string
+) => { from: string; params: any; pathname: string };
 
 export interface CanActivateContext {
   chain: {
-    route: Route;
+    route: RouteContext;
     path: string;
     element: HTMLUnknownElement;
   }[];
