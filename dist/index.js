@@ -27,7 +27,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
                 },
                 {
                     provide: injection_tokens_1.Routes,
-                    useValue: helpers_1.loadLazyRoutes(routes)
+                    useValue: helpers_1.loadRoutes(routes)
                 },
                 {
                     provide: injection_tokens_1.RouterInitialized,
@@ -47,7 +47,7 @@ let RouterModule = RouterModule_1 = class RouterModule {
         };
     }
     static forChild(routes) {
-        helpers_1.ChildRoutesObservable.next(helpers_1.loadLazyRoutes(routes));
+        helpers_1.ChildRoutesObservable.next(helpers_1.loadRoutes(routes));
         return RouterModule_1;
     }
 };

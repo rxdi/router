@@ -1,5 +1,5 @@
 import { Container } from '@rxdi/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Outlet } from './outlet';
 import { RouterComponent } from './router.component';
 
@@ -14,7 +14,7 @@ export function Router() {
   };
 }
 
-export type LazyChildren = () => Promise<any>;
+export type LazyChildren = (context?: CanActivateContext, commands?: CanActivateCommands) => Promise<any>;
 export type Router = Outlet;
 
 export interface Route<C = any> {
@@ -24,7 +24,56 @@ export interface Route<C = any> {
   children?: Route<C>[] | LazyChildren;
   redirect?: string;
   freeze?: boolean;
-  action?: () => Promise<any>;
+  action?: LazyChildren;
+  canActivate?: Function;
+}
+
+export interface CanActivateContextKeys {
+  delimiter: string | '/';
+  name: number;
+  optional: boolean;
+  partial: boolean;
+  pattern: string | '.*';
+  prefix: string | '';
+  repeat: boolean;
+}
+
+export interface RouteContext extends Route {
+  parent: {
+    parent: any;
+    path: string;
+  }
+}
+
+export interface CanActivateResolver {
+  canActivate(
+    context: CanActivateContext,
+    commands: CanActivateCommands
+  ):
+    | CanActivateRedirect
+    | boolean
+    | Promise<boolean>
+    | Observable<boolean>
+    | void;
+}
+
+export type CanActivateRedirect = (
+  path: string
+) => { from: string; params: any; pathname: string };
+
+export interface CanActivateContext {
+  chain: {
+    route: RouteContext;
+    path: string;
+    element: HTMLUnknownElement;
+  }[];
+  keys: any[];
+  next: (resume?, parent?, prevResult?) => any;
+}
+
+export interface CanActivateCommands {
+  component: () => HTMLUnknownElement;
+  redirect: CanActivateRedirect;
 }
 
 export const RouterRoutlet = 'router-outlet';

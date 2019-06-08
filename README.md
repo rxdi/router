@@ -116,3 +116,47 @@ export class UserProfile extends LitElement {
   }
 }
 ```
+
+
+
+#### Router Guards
+
+ ```typescript
+import { Injectable } from '@rxdi/core';
+import { Observable } from 'rxjs';
+import {
+  CanActivateContext,
+  CanActivateCommands,
+  CanActivateResolver,
+  CanActivateRedirect
+} from '@rxdi/router';
+ @Injectable()
+export class LoggedInGuard implements CanActivateResolver {
+  OnInit() {}
+   canActivate(
+    context: CanActivateContext,
+    commands: CanActivateCommands
+  ):
+    | CanActivateRedirect
+    | boolean
+    | Promise<boolean>
+    | Observable<boolean>
+    | void {
+    // return false | true;
+    // return new Promise((r) => r(true | false));
+    // return new Observable((o) => {
+    //     o.next(false | true);
+    //     o.complete();
+    // });
+    // throw new Error('error');
+  }
+}
+```
+
+ Guards can be defined inside `RouterModule`
+When particular route resolver is triggered you will stop in this `Guard` before component is resolved
+
+ Njoy!	Njoy!
+
+Njoy!
+
