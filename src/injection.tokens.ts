@@ -1,5 +1,5 @@
 import { Container } from '@rxdi/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Outlet } from './outlet';
 import { RouterComponent } from './router.component';
 
@@ -26,7 +26,32 @@ export interface Route<C = any> {
   freeze?: boolean;
   action?: LazyChildren;
   canActivate?: Function;
+}
 
+
+
+export interface CanActivateResolver {
+  canActivate(
+    context: CanActivateContext,
+    commands: CanActivateCommands
+  ): CanActivateRedirect | boolean | Promise<boolean> | Observable<boolean> | void;
+}
+
+export type CanActivateRedirect = (path: string) => { from: string; params: any; pathname: string }
+
+export interface CanActivateContext {
+  chain: {
+    route: Route;
+    path: string;
+    element: HTMLUnknownElement;
+  }[];
+  keys: any[];
+  next: (resume?, parent?, prevResult?) => any;
+}
+
+export interface CanActivateCommands {
+  component: () => HTMLUnknownElement;
+  redirect: CanActivateRedirect;
 }
 
 export const RouterRoutlet = 'router-outlet';

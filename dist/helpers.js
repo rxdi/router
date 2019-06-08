@@ -24,9 +24,20 @@ function assignChildren(route) {
     return route;
 }
 function assignAction(route) {
-    if (route.canActivate && typeof route.children === 'function' && !route.action) {
+    if (route.canActivate) {
         const guard = core_1.Container.get(route.canActivate);
-        route.action = guard['canActivate'].bind(guard);
+        if (route.action) {
+            const originalAction = route.action;
+            route.action = function (context, commands) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    yield originalAction(context, commands);
+                    return guard.canActivate.bind(guard)(context, commands);
+                });
+            };
+        }
+        else {
+            route.action = guard.canActivate.bind(guard);
+        }
     }
     return route;
 }
