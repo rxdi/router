@@ -34,7 +34,13 @@ function activateGuard(result, commands, route) {
         }
         else {
             const routerOptions = core_1.Container.get(injection_tokens_1.RouterOptions);
-            const redirect = commands.redirect(route.parent.path || '/');
+            let redirect;
+            if (route.path === '/') {
+                redirect = commands.redirect('/not-found');
+            }
+            else {
+                redirect = commands.redirect(route.parent.path || '/');
+            }
             if (routerOptions.log) {
                 console.error(`Guard ${route.canActivate['originalName']} activated!`);
             }
@@ -57,6 +63,13 @@ function assignAction(route) {
         }
         else {
             route.action = guard.canActivate.bind(guard);
+            const originalAction = route.action;
+            route.action = function (context, commands) {
+                return __awaiter(this, void 0, void 0, function* () {
+                    const result = yield originalAction(context, commands);
+                    return activateGuard(result, commands, route);
+                });
+            };
         }
     }
     return route;
