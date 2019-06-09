@@ -10,6 +10,7 @@ import {
   RouterInitialized
 } from './injection.tokens';
 import { ChildRoutesObservable, loadRoutes } from './helpers';
+import { NotFoundComponent } from './not-found.component';
 
 @Module()
 export class RouterModule {
@@ -55,10 +56,13 @@ export class RouterModule {
 export * from './injection.tokens';
 export * from './outlet';
 export * from './decorators';
+export * from './router.component';
+export * from './not-found.component';
 export * from './helpers';
 
 declare global {
   interface HTMLElementTagNameMap {
     'router-outlet': RouterComponent;
+    'default-not-found-component': NotFoundComponent;
   }
 }

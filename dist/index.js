@@ -58,4 +58,6 @@ exports.RouterModule = RouterModule;
 __export(require("./injection.tokens"));
 __export(require("./outlet"));
 __export(require("./decorators"));
+__export(require("./router.component"));
+__export(require("./not-found.component"));
 __export(require("./helpers"));
