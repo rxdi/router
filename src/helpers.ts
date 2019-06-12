@@ -2,21 +2,23 @@ import { BehaviorSubject, isObservable } from 'rxjs';
 import {
   Route,
   CanActivateResolver,
-  CanActivateCommands,
-  CanActivateContext,
   RouterOptions,
   RouteContext
 } from './injection.tokens';
 import { Container } from '@rxdi/core';
 
+const RouteCache = new Map();
 export const ChildRoutesObservable = new BehaviorSubject(null);
-
 function assignChildren(route: Route) {
   if (route.children && typeof route.children === 'function') {
     const lazyModule = route.children;
     route.children = async function(context, commands) {
       await lazyModule(context, commands);
-      return ChildRoutesObservable.getValue();
+      let params = ChildRoutesObservable.getValue();
+      if (!RouteCache.has(route.path)) {
+        RouteCache.set(route.path, params);
+      }
+      return RouteCache.get(route.path);
     };
   }
   return route;

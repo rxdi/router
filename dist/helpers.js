@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = require("rxjs");
 const injection_tokens_1 = require("./injection.tokens");
 const core_1 = require("@rxdi/core");
+const RouteCache = new Map();
 exports.ChildRoutesObservable = new rxjs_1.BehaviorSubject(null);
 function assignChildren(route) {
     if (route.children && typeof route.children === 'function') {
@@ -18,7 +19,11 @@ function assignChildren(route) {
         route.children = function (context, commands) {
             return __awaiter(this, void 0, void 0, function* () {
                 yield lazyModule(context, commands);
-                return exports.ChildRoutesObservable.getValue();
+                let params = exports.ChildRoutesObservable.getValue();
+                if (!RouteCache.has(route.path)) {
+                    RouteCache.set(route.path, params);
+                }
+                return RouteCache.get(route.path);
             });
         };
     }

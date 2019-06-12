@@ -10,7 +10,8 @@ const lit_html_1 = require("@rxdi/lit-html");
 let NotFoundComponent = class NotFoundComponent extends HTMLElement {
 };
 NotFoundComponent = __decorate([
-    lit_html_1.customElement('not-found-component-rxdi', {
+    lit_html_1.Component({
+        selector: 'not-found-component-rxdi',
         useShadow: true,
         template: () => lit_html_1.html `
     <h1>Not found component!</h1>
