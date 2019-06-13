@@ -8,13 +8,19 @@ import {
 import { Container } from '@rxdi/core';
 
 const RouteCache = new Map();
-export const ChildRoutesObservable = new BehaviorSubject(null);
+
+export const ChildRoutesObservable: BehaviorSubject<
+  Route<any>[]
+> = new BehaviorSubject(null);
+
 function assignChildren(route: Route) {
   if (route.children && typeof route.children === 'function') {
     const lazyModule = route.children;
     route.children = async function(context, commands) {
       await lazyModule(context, commands);
-      let params = ChildRoutesObservable.getValue();
+      let params = [
+        ...ChildRoutesObservable.getValue().map(r => Object.assign({}, r))
+      ];
       if (!RouteCache.has(route.path)) {
         RouteCache.set(route.path, params);
       }

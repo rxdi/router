@@ -19,7 +19,9 @@ function assignChildren(route) {
         route.children = function (context, commands) {
             return __awaiter(this, void 0, void 0, function* () {
                 yield lazyModule(context, commands);
-                let params = exports.ChildRoutesObservable.getValue();
+                let params = [
+                    ...exports.ChildRoutesObservable.getValue().map(r => Object.assign({}, r))
+                ];
                 if (!RouteCache.has(route.path)) {
                     RouteCache.set(route.path, params);
                 }
