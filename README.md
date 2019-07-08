@@ -60,20 +60,21 @@ export class AppModule {}
 #### Import `<router-outlet></router-outlet>` inside `AppComponent`
 
 ```typescript
-import { Inject } from '@rxdi/core';
-import { html, render, customElement } from '@rxdi/lit-html';
+import { html, Component } from '@rxdi/lit-html';
 
-@customElement('app-component')
-export class AppComponent extends HTMLElement {
-  OnInit() {
-    render(
-      html`
-        <router-outlet></router-outlet>
-      `,
-      document.body
-    );
-  }
-}
+/**
+ * @customElement app-component
+ */
+@Component({
+  selector: 'app-component',
+  template(this: AppComponent) {
+    return html`
+      <router-outlet></router-outlet>
+    `,
+  },
+  container: document.body
+})
+export class AppComponent extends HTMLElement {}
 
 ```
 
@@ -103,9 +104,13 @@ Header and footer can be added also outside of router `shadowDOM`
 ```typescript
 
 
-import { customElement, LitElement } from '@rxdi/lit-html';
-
-@customElement('x-user-profile')
+import { Component, LitElement } from '@rxdi/lit-html';
+/**
+ * @customElement x-user-profile
+ */
+@Component({
+  selector: 'x-user-profile'
+})
 export class UserProfile extends LitElement {
 
   @RouteParams()
@@ -184,12 +189,13 @@ Njoy!
 #### Hooks
 
 ```typescript
-import { html, customElement, async, LitElement } from '@rxdi/lit-html';
+import { html, Component, async, LitElement } from '@rxdi/lit-html';
 import { timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OnBeforeEnter, OnAfterEnter, OnAfterLeave, OnBeforeLeave } from '@rxdi/router';
 
-@customElement('about-component', {
+@Component({
+  selector: 'about-component',
   template(this: AboutComponent) {
     return html`
     <header>

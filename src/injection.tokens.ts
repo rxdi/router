@@ -14,7 +14,10 @@ export function Router() {
   };
 }
 
-export type LazyChildren = (context?: CanActivateContext, commands?: CanActivateCommands) => Promise<any>;
+export type LazyChildren = (
+  context?: CanActivateContext,
+  commands?: CanActivateCommands
+) => Promise<any>;
 export type Router = Outlet;
 
 export interface Route<C = any> {
@@ -42,7 +45,7 @@ export interface RouteContext extends Route {
   parent: {
     parent: any;
     path: string;
-  }
+  };
 }
 
 export interface CanActivateResolver {
@@ -51,6 +54,7 @@ export interface CanActivateResolver {
     commands: CanActivateCommands
   ):
     | CanActivateRedirectResult
+    | Promise<CanActivateRedirectResult>
     | boolean
     | Promise<boolean>
     | Observable<boolean>
@@ -60,7 +64,7 @@ export interface CanActivateRedirectResult {
   from: string;
   params: any;
   pathname: string;
-};
+}
 
 export interface CanActivateContext {
   chain: {
@@ -74,9 +78,7 @@ export interface CanActivateContext {
 
 export interface CanActivateCommands {
   component: () => HTMLUnknownElement;
-  redirect: (
-    path: string
-  ) => CanActivateRedirectResult;
+  redirect: (path: string) => CanActivateRedirectResult;
 }
 
 export const RouterRoutlet = 'router-outlet';
@@ -93,7 +95,6 @@ export type Routes = Route<any>[];
 
 export type RouterRoutlet = BehaviorSubject<Outlet>;
 export type RouterInitialized = BehaviorSubject<RouterComponent>;
-
 
 export interface OnBeforeEnter {
   onBeforeEnter(): Promise<any> | void;
