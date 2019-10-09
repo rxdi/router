@@ -32,7 +32,7 @@ export interface RouteContext extends Route {
     };
 }
 export interface CanActivateResolver {
-    canActivate(context: CanActivateContext, commands: CanActivateCommands): CanActivateRedirectResult | boolean | Promise<boolean> | Observable<boolean> | void;
+    canActivate(context: CanActivateContext, commands: CanActivateCommands): CanActivateRedirectResult | Promise<CanActivateRedirectResult> | boolean | Promise<boolean> | Observable<boolean> | void;
 }
 export interface CanActivateRedirectResult {
     from: string;

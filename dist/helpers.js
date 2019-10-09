@@ -88,6 +88,20 @@ function assignStaticIs(route) {
     return route;
 }
 function loadRoutes(routes) {
+    const notFoundRoute = routes.find(v => v.path === '(.*)');
+    routes = routes.sort(function (a, b) {
+        if (a.path < b.path) {
+            return -1;
+        }
+        if (b.path < a.path) {
+            return 1;
+        }
+        return 0;
+    });
+    if (notFoundRoute) {
+        routes.splice(routes.indexOf(notFoundRoute), 1);
+        routes.push(notFoundRoute);
+    }
     const r = [...routes].map(route => assignStaticIs(assignAction(assignChildren(route))));
     exports.ChildRoutesObservable.next(null);
     return r;
