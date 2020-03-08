@@ -9,11 +9,12 @@
     "url": "https://github.com/rxdi/router"
   },
   "dependencies": {
-    "@vaadin/router": "^1.2.0"
+    "@vaadin/router": "^1.2.0",
+    "router-slot": "^1.5.2"
   },
   "devDependencies": {
-    "@rxdi/core": "^0.7.37",
-    "@rxdi/lit-html": "^0.7.37"
+    "@rxdi/core": "^0.7.41",
+    "@rxdi/lit-html": "^0.7.42"
   },
   "types": "./dist/index.d.ts",
   "module": "./dist/index.js",

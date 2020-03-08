@@ -2,19 +2,19 @@
 # yarn lockfile v1
 
 
-"@rxdi/core@^0.7.23":
-  version "0.7.24"
-  resolved "https://registry.yarnpkg.com/@rxdi/core/-/core-0.7.24.tgz#01c88321438a391518f30f509891bc3305ecb39e"
-  integrity sha512-Z7t3/GUvO1Kz4CLnPcYDTUsqnViX/I8v0ATfYdKeegVTMK4266JHCzz3gm6GL8n2tvTKF0/VOqGurQHPoWXpwA==
+"@rxdi/core@^0.7.41":
+  version "0.7.41"
+  resolved "https://registry.yarnpkg.com/@rxdi/core/-/core-0.7.41.tgz#6cf1ed8f321d7dfc069ae150419ffd89a376a9f6"
+  integrity sha512-nG0CD/yaEWFN3QY/nkp6qgWYgRirOOc+13XkFWIu2nVdYk4N4TCHafDAKtGT2iDd0pzdcwaRbB/IotX+lkxg0A==
   dependencies:
     reflect-metadata "0.1.13"
-    rxjs "6.5.2"
+    rxjs "^6.5.3"
     systemjs "0.21.4"
 
-"@rxdi/lit-html@^0.7.23":
-  version "0.7.24"
-  resolved "https://registry.yarnpkg.com/@rxdi/lit-html/-/lit-html-0.7.24.tgz#097912f85fe9f7dbab112a8ad7709da25dcc3bac"
-  integrity sha512-Musgu8mLRoPlaG/7X0jU7+z4QwmLxQeWBLhwzvQCHAYLCAKFH/HDMOMbxla17qoIh8nDvxIzVHdQ5m5s5LGPdA==
+"@rxdi/lit-html@^0.7.42":
+  version "0.7.42"
+  resolved "https://registry.yarnpkg.com/@rxdi/lit-html/-/lit-html-0.7.42.tgz#0c0bd948496b2d869e68a56e3d8603a0cbc38ef9"
+  integrity sha512-XKoyXLp877C4+s9Qo2JSlmgrGLNGDanr9SDZlv0HrZ012LQJCjCJCH/s0Dl5OzXPyzUin97pCmZ64ntggpbSbQ==
 
 "@vaadin/router@^1.2.0":
   version "1.5.0"
@@ -46,10 +46,15 @@ reflect-metadata@0.1.13:
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
   integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
-rxjs@6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
-  integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
+router-slot@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/router-slot/-/router-slot-1.5.2.tgz#89f5f82c79b1e5343d449083e9f09bbd9e55a375"
+  integrity sha512-NUvYbjsd1CAhhc23V6+UQsUKS+ZVfPe0esRPTDKW0iV+dilfB3Tn5A1SwIkEnf7BP4flUNXKEVa21fvaGn3JVQ==
+
+rxjs@^6.5.3:
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.4.tgz#e0777fe0d184cec7872df147f303572d414e211c"
+  integrity sha512-naMQXcgEo3csAEGvw/NydRA0fuS2nDZJiw1YUWFKU7aPPAPGZEsD4Iimit96qwCieH6y614MCLYwdkrWx7z/7Q==
   dependencies:
     tslib "^1.9.0"
 
