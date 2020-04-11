@@ -58,6 +58,7 @@ export interface CanActivateResolver {
     | boolean
     | Promise<boolean>
     | Observable<boolean>
+    | Observable<CanActivateRedirectResult | boolean>
     | void;
 }
 export interface CanActivateRedirectResult {
@@ -66,13 +67,18 @@ export interface CanActivateRedirectResult {
   pathname: string;
 }
 
-export interface CanActivateContext {
+export interface CanActivateContext<T = {}> {
   chain: {
     route: RouteContext;
     path: string;
     element: HTMLUnknownElement;
   }[];
+  resolver: Outlet;
+  search: string;
+  hash: string;
   keys: any[];
+  route: Route;
+  params: T;
   next: (resume?, parent?, prevResult?) => any;
 }
 
